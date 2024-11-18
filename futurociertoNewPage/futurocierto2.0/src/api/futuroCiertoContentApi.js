@@ -58,6 +58,32 @@ export const getCause = ()=>{
 }
 
 
+export const getColloborator = ()=>{
+    return axios.get('http://localhost:8000/FuturoCiertoContent/api/v1/colloborator/')
+}
+
+
+export const getvideo = ()=>{
+    return axios.get('http://localhost:8000/FuturoCiertoContent/api/v1/video/')
+}
+
+
+export const getReflection = ()=>{
+    return axios.get('http://localhost:8000/FuturoCiertoContent/api/v1/reflection/')
+}
+
+
+export const getContact = ()=>{
+    return axios.get('http://localhost:8000/FuturoCiertoContent/api/v1/contact/')
+}
+
+export const getaccountBank= ()=>{
+    return axios.get('http://localhost:8000/FuturoCiertoContent/api/v1/accountBank/')
+}
+
+
+
+
 
 
 

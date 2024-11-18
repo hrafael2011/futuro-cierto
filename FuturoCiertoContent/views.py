@@ -1,7 +1,19 @@
 
 from rest_framework import viewsets
-from .models import navigation, news, educations, logo, missionValues, whoWeAre, banner, event, causes
-from .serializer import navSerializer, newsSerializer, educationSerializer, logoSerializer, missionValuesSerializer, whoWeAreSerializer, bannerSerializer, eventSerializer, causeSerializer
+from .models import navigation, news, educations, logo, missionValues, whoWeAre, banner, event, causes, collaborator, video, reflectionByJose, contact, currency, accountBank
+from .serializer import (navSerializer, 
+                         newsSerializer, 
+                         educationSerializer, 
+                         logoSerializer, 
+                         missionValuesSerializer, 
+                         whoWeAreSerializer, 
+                         bannerSerializer, eventSerializer, 
+                         causeSerializer,
+                           collaboratorSerializer,
+                           videoSerializer,
+                           reflectionSerializer,
+                           contactSerializer, 
+                           accountBankSerializer)
 
 
 
@@ -41,3 +53,30 @@ class eventView(viewsets.ModelViewSet):
 class causeView(viewsets.ModelViewSet):
     queryset = causes.objects.filter(is_active=True)
     serializer_class = causeSerializer
+
+
+class collaboratorView(viewsets.ModelViewSet):
+    queryset = collaborator.objects.filter(is_active=True)
+    serializer_class = collaboratorSerializer
+
+
+
+class videoView(viewsets.ModelViewSet):
+    queryset = video.objects.filter(is_active=True)
+    serializer_class = videoSerializer
+
+class reflectionView(viewsets.ModelViewSet):
+    queryset = reflectionByJose.objects.filter(is_active=True)
+    serializer_class = reflectionSerializer
+
+class contactView(viewsets.ModelViewSet):
+    queryset = contact.objects.filter(is_active=True)
+    serializer_class = contactSerializer
+
+class accountBankView(viewsets.ModelViewSet):
+    queryset = accountBank.objects.filter(is_active=True).select_related('Currency')
+    serializer_class = accountBankSerializer
+
+class currencyView(viewsets.ModelViewSet):
+    queryset = currency.objects.filter(is_active=True)
+    

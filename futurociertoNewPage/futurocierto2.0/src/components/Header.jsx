@@ -124,21 +124,7 @@ const Header = ({onContactClick, onCoundownClick}) => {
           </li>
       ))}
           
-        {/*
-          <li className="active"><Link to="/">Inicio</Link>
-            <ul className="dropdown">
-              <li><a href="02-Home.html">Home 2</a></li>
-              <li><a href="03-Home.html">Home 3</a></li>
-            </ul>
-          </li>
-          <li><Link to="/quienes-somos">quienes somos </Link></li>
-          <li><Link to="/mision-valores">Misión y Valores </Link></li>
-          <li><Link to="/educacion">Eduación </Link></li>
-          <li><Link to="/noticias">noticias </Link></li>
-          <li><Link to="/contacto">contactos </Link></li>
-          <li><Link to="/donar">donar </Link> </li>
-           */}
-          
+        
           
         </ul>
       </div>

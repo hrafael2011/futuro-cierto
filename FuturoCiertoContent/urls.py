@@ -10,7 +10,14 @@ from .views import (
          missionValueView,
          newsView,
          educationView,
-         causeView
+         causeView,
+         collaboratorView,
+         videoView,
+         reflectionView,
+         contactView,
+         accountBankView
+         
+         
         
          )       
 
@@ -25,6 +32,11 @@ router.register(r'missionValues',missionValueView, basename='missionValues')
 router.register(r'news',newsView, basename='news')
 router.register(r'education',educationView, basename='education')
 router.register(r'cause',causeView, basename='cause')
+router.register(r'colloborator',collaboratorView, basename='colloborator')
+router.register(r'video',videoView, basename='video')
+router.register(r'reflection',reflectionView, basename='reflection')
+router.register(r'contact',contactView, basename='contact')
+router.register(r'accountBank',accountBankView, basename='accountBank')
 
 urlpatterns = [
     path("api/v1/", include(router.urls)),

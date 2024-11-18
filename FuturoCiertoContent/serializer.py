@@ -8,7 +8,13 @@ from .models import (navigation,
                     whoWeAre,
                     banner, 
                     event,
-                    causes)
+                    causes,
+                    collaborator,
+                    video,
+                    reflectionByJose,
+                    contact,
+                    currency, 
+                    accountBank)
 
 
 class navSerializer(serializers.ModelSerializer):
@@ -72,5 +78,49 @@ class causeSerializer(serializers.ModelSerializer):
     class Meta:
         model = causes
         fields = ('CauseID','Cause', 'Image','Title','Description','TextAlt')
+
+class collaboratorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = collaborator
+        fields = ('CollaboratorID','Name', 'Image','Description','TextAlt')
+
+
+class videoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = video
+        fields = ('VideoID','Title', 'VideoFile')
+
+class reflectionSerializer(serializers.ModelSerializer):
+
+    formatted_comment1 = serializers.SerializerMethodField()
+    formatted_comment2 = serializers.SerializerMethodField()
+    formatted_comment3 = serializers.SerializerMethodField()
+
+    class Meta:
+        model = reflectionByJose
+        fields = ('ReflectionID','Comment1','Comment2','Comment3', 'Image', 'TextAlt', 'formatted_comment1', 'formatted_comment2', 'formatted_comment3')
+    def get_formatted_comment1(self, obj):
+        # Usa `linebreaks` para que Django convierta los saltos de línea en HTML
+        return linebreaks(obj.Comment1)
+    def get_formatted_comment2(self, obj):
+        
+        return linebreaks(obj.Comment2)
+    def get_formatted_comment3(self, obj):
+     
+        return linebreaks(obj.Comment3)
+    
+class contactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = contact
+        fields = ('ContactID','Phone', 'Email','LinkFacebook','LinkInstagram','LinkTweeter')
+
+
+class accountBankSerializer(serializers.ModelSerializer):
+
+    currency_name = serializers.CharField(source='Currency.Currency', read_only=True)
+    currency_ID = serializers.IntegerField(source='Currency.CurrencyID', read_only=True)  # Campo adicional para el ID
+    class Meta:
+        model = accountBank
+        fields = ('AccountID','Bank', 'Account','Currency','currency_name','currency_ID')
 
   

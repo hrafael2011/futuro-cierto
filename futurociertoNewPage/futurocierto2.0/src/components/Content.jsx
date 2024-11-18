@@ -1,8 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { getCause } from "../api/futuroCiertoContentApi";
+import { Link, useLocation } from "react-router-dom";
+import { scroller } from "react-scroll";
+import { getCause, getColloborator, getvideo, getNews, getEducation,getReflection } from "../api/futuroCiertoContentApi";
+
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 1000,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 3000,
+};
+
+
+
 
 const Content = () => {
   const [cause, setCause] = useState([]);
+  const [colloborator, setColloborater] = useState([]);
+  const [videos, setVideos] = useState([]) 
+  const [news, setNews] = useState([]) 
+  const [education, SetEducation] = useState([])
+  const [refletion, Setrefletion] = useState([])
+  const [visibleColloborator, setVisibleColoborator] = useState([4])
+  const itemsPerPage = 4;
+
 
   useEffect(() => {
     const GetCause = async () => {
@@ -15,6 +42,115 @@ const Content = () => {
     };
     GetCause();
   }, []);
+
+
+  useEffect(() => {
+    const GetColloborator = async () => {
+      try {
+        const response = await getColloborator();
+        setColloborater(response.data);
+      } catch (error) {
+        console.log("Error Fetching colloborator", error);
+      }
+    };
+    GetColloborator();
+  }, []);
+
+
+  useEffect(()=>{
+    const GetVideo = async ()=>{
+      try{
+        const response = await getvideo()
+        setVideos(response.data)
+        console.log("Respuesta de video", response)
+      }catch(error){
+        console.log('Error Feching Data video', error)
+      }
+      
+    }
+    GetVideo()
+  },[]);
+  
+  useEffect(()=>{
+    const Getnew = async ()=>{
+      try{
+        const response = await getNews()
+        setNews(response.data[response.data.length -1])
+       }catch(error){
+        console.log('Error Feching Data News', error)
+      }
+      
+    }
+    Getnew()
+  },[]);
+
+
+  useEffect(()=>{
+    const GetEducaction = async ()=>{
+      try{
+        const response = await getEducation()
+        SetEducation(response.data[response.data.length -1])
+       }catch(error){
+        console.log('Error Feching Data education', error)
+      }
+      
+    }
+    GetEducaction()
+  },[]);
+
+  useEffect(()=>{
+    const GetReflection = async ()=>{
+      try{
+        const response = await getReflection()
+        Setrefletion(response.data)
+        console.log('Estos son lo datos de reflection', response)
+       }catch(error){
+        console.log('Error Feching Data reflection', error)
+      }
+      
+    }
+    GetReflection()
+  },[]);
+  
+// maneja el boton ver mas para aumentar los elementos visibles
+
+const handleShowMore =() =>{
+  setVisibleColoborator((prevVisibleitems) => prevVisibleitems + itemsPerPage)
+}
+
+const handleShowless =() =>{
+  setVisibleColoborator(4)
+}
+
+
+const location = useLocation();
+
+useEffect(()=>{
+  if(location.hash === "#ComoAyudar"){
+    scroller.scrollTo("howCanYouHelp", {
+        smooth: true,
+        duration: 500,
+        offset: -70
+   });
+  }
+},[location])
+
+
+const locationCause = useLocation();
+
+useEffect(()=>{
+  if(locationCause.hash === "#Causas"){
+    scroller.scrollTo("causes", {
+        smooth: true,
+        duration: 500,
+        hashSpy: false,
+        offset: -70
+   });
+  }
+},[locationCause])
+
+ 
+
 
   return (
     <div>
@@ -34,7 +170,7 @@ const Content = () => {
             </div>
 
             {/* <!--======= CASES ROW =========-->*/}
-            <ul className="row">
+            <ul className="row" id="causes">
               {/* <!--======= CASE 1 =========-->*/}
 
               
@@ -87,10 +223,10 @@ const Content = () => {
           <div className="container">
             <ul className="row">
               {/* <!--======= HOW CAN YOU HELP =========-->*/}
-              <li className="col-sm-4">
+              <li className="col-sm-4" id='howCanYouHelp'>
                 {" "}
-                <span className="big-text font-lora">
-                  How <small>Can You Help?</small>
+                <span  className="big-text font-lora">
+                  Como <small>¿Puedo ayudar?</small>
                 </span>
                 <hr />
                 <p>
@@ -99,40 +235,35 @@ const Content = () => {
                   irure dolor in reprehenderit inas voluptate velit esse
                   cillum...
                 </p>
-                <a href="#." className="btn">
-                  Learn More <i className="fa fa-arrow-circle-o-right"></i>
-                </a>{" "}
+               
               </li>
 
               {/* <!--======= FEATURED =========-->*/}
               <li className="col-sm-4">
                 <ul className="help-fea">
                   <li className="font-lora">
-                    <img src="src/assets/images/help-icon-1.png" alt="" /> Media
+                    <img src="src/assets/images/help-icon-1.png" alt="" /> Siguendo Nuestras Redes Sociales
                   </li>
                   <li className="font-lora">
                     <img src="src/assets/images/help-icon-2.png" alt="" />{" "}
-                    Become Volunteer
+                    Convertiendote en Voluntario
                   </li>
                   <li className="font-lora">
-                    <img src="src/assets/images/help-icon-3.png" alt="" /> Make
-                    a Gift
+                    <img src="src/assets/images/help-icon-3.png" alt="" /> Haciendo
+                    un regalo
                   </li>
                   <li className="font-lora">
-                    <img src="src/assets/images/help-icon-4.png" alt="" /> Send
-                    Donation
+                    <img src="src/assets/images/help-icon-4.png" alt="" /> 
+                    Donando
                   </li>
-                  <li className="font-lora">
-                    <img src="src/assets/images/help-icon-5.png" alt="" /> Give
-                    Helping Hand
-                  </li>
+                  
                 </ul>
               </li>
               {/* <!--======= DONATION IMAGE =========-->*/}
               <li className="col-sm-4">
                 {" "}
-                <img
-                  className="img-responsive"
+                <img 
+                  className=" w-[422px] h-[656px]"
                   src="src/assets/images/donate-img.png"
                   alt=""
                 />{" "}
@@ -230,89 +361,61 @@ const Content = () => {
             </div>
 
             {/* <!--======= DONATOR ROWS =========-->*/}
-            <div className="row">
+            <div className="w-[100%] ">
               {/* <!--======= DONATOR 1 =========-->*/}
-              <div className="col-md-6">
-                <ul className="row">
-                  {/* <!--======= DONATOR 1 =========-->*/}
-                  <li className="col-sm-6">
-                    <div className="avatar">
-                      {" "}
-                      <img
-                        className="img-responsive"
-                        src="src/assets/images/avatar-1.jpg"
-                        alt=""
-                      />{" "}
-                    </div>
-                    <div className="donor-details">
-                      <h5>Chris Binva</h5>
-                      <p className="font-lora">Nikan Manager, Sydney</p>
-                      <span className="font-lora">
-                        Donated : <strong>$1052</strong>
-                      </span>{" "}
-                    </div>
-                  </li>
+              <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 ">
+                {colloborator.slice(0, visibleColloborator).map((collob, i)=>(
 
-                  {/* <!--======= DONATOR 2 =========-->*/}
-                  <li className="col-sm-6">
+                  <ul className="w-[230px] pl-4 md:pl-4 lg:ml-4  md:ml-16  sm:ml-8 custom1:ml-48 custom2:ml-10 ">
+                      <li key={i} className="mb-16 ">
                     <div className="avatar">
                       {" "}
                       <img
                         className="img-responsive"
-                        src="src/assets/images/avatar-2.jpg"
-                        alt=""
+                        src={collob.Image}
+                        alt={collob.AltText}
                       />{" "}
                     </div>
-                    <div className="donor-details">
-                      <h5>Jenny Rose</h5>
-                      <p className="font-lora">Nikan Manager, Sydney</p>
-                      <span className="font-lora">
-                        Donated : <strong>$252</strong>
-                      </span>{" "}
+                    <div className="donor-details h-[200px]">
+                      <h5 className="mt-4">{collob.Name}</h5>
+                      <p className="font-lora">{collob.Description}</p>
+                     
                     </div>
                   </li>
-                </ul>
+                  </ul>
+                ))}
+
+         
+               
               </div>
 
-              {/* <!--======= DONATOR ROW =========-->*/}
+                    <div className=" blog flex justify-center">
+                            {visibleColloborator < colloborator.length && (
+                              
+                              <a href="#." className="btn" onClick={handleShowMore}>
+                                  Ver mas <i className="fa fa-arrow-circle-o-right"></i>
+                              </a>
+                                )}    
+
+                            {visibleColloborator > 4 && (
+                                    
+
+                                    <a href="#." className="btn" onClick={handleShowless}>
+                                        Ver Menos <i className="fa fa-arrow-circle-o-right"></i>
+                                     </a>
+                                )}
+
+                    </div>
+                                  
+
+             {/* <!--======= DONATOR ROW =========-->*/}
               <div className="col-md-6">
                 <ul className="row">
                   {/* <!--======= DONATOR 1 =========-->*/}
-                  <li className="col-sm-6">
-                    <div className="avatar">
-                      {" "}
-                      <img
-                        className="img-responsive"
-                        src="src/assets/images/avatar-3.jpg"
-                        alt=""
-                      />{" "}
-                    </div>
-                    <div className="donor-details">
-                      <h5>Benny Doe</h5>
-                      <p className="font-lora">Nikan Manager, Sydney</p>
-                      <span className="font-lora">
-                        Donated : <strong>$1052</strong>
-                      </span>{" "}
-                    </div>
-                  </li>
+                 
 
                   {/* <!--======= DONATOR 2 =========-->*/}
-                  <li className="col-sm-6 become-donor">
-                    <div className="donor-details">
-                      <h4>
-                        Become <strong>Donator</strong>
-                      </h4>
-                      <hr />
-                      <p className="font-lora">
-                        {" "}
-                        Quis nostrud exercitation ullamco laboris nisi ut
-                        aliquip ex ea cmodo conse quat.{" "}
-                      </p>
-                      <a href="#." className="btn">
-                        JOIN NOW!
-                      </a>{" "}
-                    </div>
-                  </li>
+                 
                 </ul>
               </div>
             </div>
@@ -336,15 +439,16 @@ const Content = () => {
               {/* <!--======= BLOG BIG VIDEO =========-->*/}
               <div className="col-md-6">
                 <div className="video-blog">
-                  {" "}
-                  <img
-                    className="img-responsive"
-                    src="src/assets/images/blog-1.jpg"
-                    alt=""
-                  />{" "}
-                  <a href="#.">
-                    <i className="fa fa-caret-right"></i>
-                  </a>{" "}
+               
+                  {videos.map((vide, i)=>(
+                    <video width="600" height="370" key={i} controls >
+                      <source src={vide.VideoFile} type="video/mp4"/>
+                      <source src={vide.VideoFile} type="video/webm"/>
+                    </video>
+                    
+                  ))}
+                
+                  
                 </div>
               </div>
 
@@ -353,13 +457,15 @@ const Content = () => {
               <div className="col-md-6">
                 {/* <!--======= BLOG 2 =========-->*/}
 
+
+                  
                 <ul className="row">
                   <li className="col-xs-4">
                     {" "}
                     <a href="#.">
                       <img
                         className="img-responsive"
-                        src="src/assets/images/blog-2.jpg"
+                        src={news.Image}
                         alt=""
                       />
                     </a>{" "}
@@ -367,18 +473,20 @@ const Content = () => {
                   <li className="col-xs-8">
                     {" "}
                     <a className="font-lora title" href="#.">
-                      The New Charity psd TemplateDesign
+                      {news.Title}
                     </a>{" "}
                     <span className="font-lora">
-                      MAy 14, 2015 | By Admin | 4 comments
+                      Ultima noticia
                     </span>
                     <p>
-                      Perspiciatis unde omnis iste natus error sit ametsan
-                      voluptatem accusantium[...]{" "}
+                     
+                     
+                      <div dangerouslySetInnerHTML={news && news.Content?{ __html: news.formatted_text.slice(0,200)+' [...]'}:null} />
+                      
                     </p>
-                    <a href="#." className="btn">
-                      Read More <i className="fa fa-arrow-circle-o-right"></i>
-                    </a>{" "}
+                    <Link to={`noticias/${news.NewID}`} className="btn">
+                      Leer Mas <i className="fa fa-arrow-circle-o-right"></i>
+                    </Link>
                   </li>
                 </ul>
                 {/* <!--======= BLOG 3 =========-->*/}
@@ -389,104 +497,92 @@ const Content = () => {
                     <a href="#.">
                       <img
                         className="img-responsive"
-                        src="src/assets/images/blog-3.jpg"
-                        alt=""
+                        src={education.Image}
+                        alt={education.TextAlt}
                       />
                     </a>{" "}
                   </li>
                   <li className="col-xs-8">
                     {" "}
                     <a className="font-lora title" href="#.">
-                      The New Charity psd TemplateDesign
+                     {education.Title}
                     </a>{" "}
                     <span className="font-lora">
-                      MAy 14, 2015 | By Admin | 4 comments
+                    Educación
                     </span>
                     <p>
-                      Perspiciatis unde omnis iste natus error sit ametsan
-                      voluptatem accusantium[...]{" "}
+                    <div dangerouslySetInnerHTML={education && education.Content?{ __html: education.formatted_text.slice(0,200)+' [...]'}:null} />
                     </p>
-                    <a href="#." className="btn">
-                      Read More <i className="fa fa-arrow-circle-o-right"></i>
-                    </a>{" "}
+                    <Link to={`educacion/${education.EducationID}`} className="btn">
+                      Leer Mas <i className="fa fa-arrow-circle-o-right"></i>
+                    </Link>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
         </section>
+       
+
+       
+       
 
         {/* <!--======= TESTIMONIALS =========-->*/}
-        <section className="testi">
-          <div className="container">
-            {/* <!--======= ROW =========-->*/}
-            <div className="row">
-              <div className="col-md-6">
-                <h3>
-                  <strong>WHAT</strong> Our Donaters Say
-                </h3>
 
-                {/* <!--======= SLIDES =========-->*/}
-                <section>
-                  {/* <!--======= SLIDER =========-->*/}
-                  <div className="testi-slides">
-                    {/* <!--======= SLIDER 1 =========-->*/}
-                    <div className="item-slide">
-                      <p>
-                        Cum sociis natoque penatibus et magnis dis parturient
-                        salos montes ascetur ridiculus. mus. Morbi nunc odio
-                        gravida at cursus. Nultl dui. Fusce feugiat male suada
-                        odio. Morbi nunc odio gravida at cursus.
-                      </p>
-                      <h6>
-                        <strong className="font-lora">William Smith </strong>
-                        (new world marketing director)
-                      </h6>
-                    </div>
-
-                    {/* <!--======= SLIDER 1 =========-->*/}
-                    <div className="item-slide">
-                      <p>
-                        Cum sociis natoque penatibus et magnis dis parturient
-                        salos montes ascetur ridiculus. mus. Nultl dui. Fusce
-                        feugiat male suada odio. Morbi nunc odio gravida at
-                        cursus. Morbi nunc odio gravida at cursus.
-                      </p>
-                      <h6>
-                        <strong className="font-lora">William Smith </strong>
-                        (new world marketing director)
-                      </h6>
-                    </div>
-
-                    {/* <!--======= SLIDER 1 =========-->*/}
-                    <div className="item-slide">
-                      <p>
-                        Cum sociis natoque penatibus et magnis dis Morbi nunc
-                        odio gravida at cursus. parturient salos montes ascetur
-                        ridiculus. mus. Nultl dui. Fusce feugiat male suada
-                        odio. Morbi nunc odio gravida at cursus.
-                      </p>
-                      <h6>
-                        <strong className="font-lora">William Smith </strong>
-                        (new world marketing director)
-                      </h6>
-                    </div>
-                  </div>
-                </section>
-              </div>
-
-              {/* <!--======= RIGHT IMAGES =========-->*/}
-              <div className="col-md-6 with-bg-drk">
-                {" "}
-                <img
-                  className="img-responsive"
-                  src="src/assets/images/feed-img.png"
-                  alt=""
-                />{" "}
-              </div>
-            </div>
-          </div>
-        </section>
+        {refletion.map((refle,i)=>(
+           <section className="testi">
+           <div className="container">
+             {/* <!--======= ROW =========-->*/}
+             <div className="row">
+               <div className="col-md-6">
+                 <h3>
+                   <strong>Que</strong> Dicen nuestros Donadores 
+                 </h3>
+ 
+                 {/* <!--======= SLIDES =========-->*/}
+                 <section>
+                   {/* <!--======= SLIDER =========-->*/}
+                   <div className="testi-slides">
+                     {/* <!--======= SLIDER 1 =========-->*/}
+                     <div className="carousel-container pb-[20px] item-slide ">
+                      
+                        <Slider {...settings}>
+                          <div >
+                            <div dangerouslySetInnerHTML={{ __html: refle.formatted_comment1}}/>
+                          </div>
+                          <div>
+                          <div dangerouslySetInnerHTML={{ __html: refle.formatted_comment2}}/>
+                          </div>
+                          <div>
+                          <div dangerouslySetInnerHTML={{ __html: refle.formatted_comment3}}/>
+                          </div>
+                        </Slider>
+    </div>
+       
+ 
+                     {/* <!--======= SLIDER 1 =========-->*/}
+                     
+ 
+                     {/* <!--======= SLIDER 1 =========-->*/}
+                    
+                   </div>
+                 </section>
+               </div>
+ 
+               {/* <!--======= RIGHT IMAGES =========-->*/}
+               <div className="col-md-6 with-bg-drk">
+                 {" "}
+                 <img
+                   className="img-responsive w-[556px] h-[462px]"
+                   src={refle.Image}
+                   alt=""
+                 />{" "}
+               </div>
+             </div>
+           </div>
+         </section>
+        ))}
+       
 
         {/* <!--======= PROUND =========-->*/}
         <section className="proud">

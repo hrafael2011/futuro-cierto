@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'coreapi',
     'FuturoCiertoContent.apps.FuturociertocontentConfig',
     'simple_history',
+    'ckeditor'
 ]
 
 MIDDLEWARE = [

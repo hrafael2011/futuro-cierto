@@ -5,6 +5,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 import Banner from "../Banner";
 import Countdown from "../Countdown";
+import ScrollToTop from "../ScrollToTop";
 
 const MisionYValores = () => {
 
@@ -42,6 +43,7 @@ const MisionYValores = () => {
       />
         <Banner/>
         <Countdown ref={countdownref}/>
+        <ScrollToTop/>
       <Outlet/>
 
 

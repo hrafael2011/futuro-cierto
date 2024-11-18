@@ -4,6 +4,7 @@ import Banner from './components/Banner'
 import Content from './components/Content'
 import Footer from './components/Footer'
 import Countdown from './components/Countdown'
+import ScrollToTop from './components/ScrollToTop'
 
 
 const scrollToRef = (ref) =>{
@@ -31,6 +32,7 @@ function App() {
       <Header 
       onContactClick={()=>scrollToRef(footerRef)}
       onCoundownClick={()=>scrollToRef(countdownref)}/>
+      <ScrollToTop/>
       <Banner/>
       <Countdown ref={countdownref}/>
       <Content/>

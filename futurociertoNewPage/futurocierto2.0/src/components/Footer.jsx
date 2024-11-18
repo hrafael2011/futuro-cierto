@@ -1,6 +1,60 @@
-import React, {forwardRef} from 'react'
+import React, {forwardRef, useState, useEffect} from 'react'
+import { Link    } from 'react-router-dom';
+import { Link as ScrollLink } from 'react-scroll';
+import { getContact, getNav, getaccountBank } from '../api/futuroCiertoContentApi';
+
+
 
 const Footer = forwardRef((props, ref) =>{
+
+  const [contact, setContact] = useState([]);
+  const[nav, setNav] = useState([])
+  const[accountBank, setAccountBank] = useState([])
+  
+  useEffect(()=>{
+    const GetContact = async () =>{
+
+      try {
+         const response = await getContact()  
+         setContact(response.data)
+      
+      } catch (error) {
+        console.log('Error Feching Data contact', error)
+      }
+    }
+    GetContact()
+  },[]);
+
+
+  useEffect(() => {
+    const loadNav = async () => {
+      try {
+        const res = await getNav();
+        setNav(res.data);  // Actualizar el estado con los datos recibidos
+        console.log('Estos son los datos del nav', res)
+      } catch (error) {
+        console.error("Error fetching navigation data:", error);
+        // Aquí podrías manejar el error, mostrar un mensaje o hacer otra acción.
+      }
+    };
+  
+    loadNav();
+  }, []);
+
+  useEffect(()=>{
+   const GetAccoutBank =  async() =>{
+    try {
+      const response = await getaccountBank()
+      setAccountBank(response.data)
+      console.log('Estos son los datos de BankAcount', response)
+    } catch (error) {
+      console.log('Error Fetching Data Account Bank', error)
+      
+    }
+   }
+   GetAccoutBank()
+  },[]);
+
 
 
   return (
@@ -17,39 +71,39 @@ const Footer = forwardRef((props, ref) =>{
           <ul className="row">
             
             {/*<!--=/====== KEEP IN TOUCH =========-->*/}
-            <li className="col-sm-6 shadow">
-              <ul className="social_icons">
-                <li className="facebook"><a href="#."><i className="fa fa-facebook"></i></a></li>
-                <li className="twitter"><a href="#."><i className="fa fa-twitter"></i></a></li>
-                <li className="googleplus"><a href="#."><i className="fa fa-google-plus"></i></a></li>
-                <li className="instagram"><a href="#."><i className="fa fa-instagram"></i></a></li>
-                <li className="soundcloud"><a href="#."><i className="fa fa-rss"></i></a></li>
-              </ul>
-              
-              {/*<!--=/====== ADDRESS =========-->*/}
-              <h6>keep in touch</h6>
-              <p>Address : 44 New Design Street,
-                Melbourne 005 </p>
-              <p>Phone : (01) 800 433 633</p>
-              <p>Email : info@Example.com</p>
-              <div className="subcribe">
-                <form>
-                  <input type="text" placeholder="Email Address" required/>
-                  <button type="submit"><i className="fa fa-sign-in"></i></button>
-                </form>
-              </div>
-            </li>
+            {contact.map((conct, i)=>(
+
+<li className="col-sm-6 shadow">
+<ul className="social_icons">
+  <li className="facebook"><Link to={conct.LinkFacebook}><i className="fa fa-facebook"></i></Link></li>
+  <li className="twitter"><Link to={conct.LinkTweeter}><i className="fa fa-twitter"></i></Link></li>
+  <li className="instagram"><Link to={conct.LinkInstagram}><i className="fa fa-instagram"></i></Link></li>
+  
+</ul>
+
+{/*<!--=/====== ADDRESS =========-->*/}
+<h6>Contactanos</h6>
+
+<p>{conct.Phone}</p>
+<p>{conct.Email}</p>
+
+</li>
+
+
+
+            ))}
+            
             
             {/*<!--=/====== USEFULL LINKS =========-->*/}
             <li className="col-sm-6 padding-l-60">
-              <h6>useful links</h6>
+              <h6>Enlaces Utiles</h6>
               <ul className="links">
-                <li><a href="#.">About Us</a></li>
-                <li><a href="#.">Meet The Team</a></li>
-                <li><a href="#.">Volunteers</a></li>
-                <li><a href="#.">Service Provided</a></li>
-                <li><a href="#.">Latest News</a></li>
-                <li><a href="#.">Contact Us</a></li>
+                {nav.map((navi, i)=>(
+                  
+                  <li><Link to={navi.Url}>{navi.PageName != 'Contacto'&& navi.PageName != 'Donar'? navi.PageName:null}</Link></li>
+
+                ))}
+                
               </ul>
             </li>
           </ul>
@@ -71,13 +125,12 @@ const Footer = forwardRef((props, ref) =>{
             
             {/*<!--=/====== DONATION =========-->*/}
             <li className="col-sm-6 padding-l-60">
-              <h6>Donations</h6>
+              <h6>Donaciones</h6>
               <ul className="links">
-                <li><a href="#.">How to Donate</a></li>
-                <li><a href="#.">Donation List</a></li>
-                <li><a href="#.">Recent Causes</a></li>
-                <li><a href="#.">FAQ</a></li>
-                <li><a href="#." className="btn">Donate now!</a></li>
+                <li><Link to="/#ComoAyudar">Como Ayudar</Link></li>
+               
+                <li><Link to="/#Causas">Causas</Link></li>
+                <li><a href="#." className="btn">Donar ahora</a></li>
               </ul>
             </li>
           </ul>
@@ -86,10 +139,7 @@ const Footer = forwardRef((props, ref) =>{
       </div>
     </div>
     
-    {/*<!--=/====== RIGHTS =========-->*/}
-    <div className="rights">
-      <p className="text-uppercase">Copyright © 2015 social welfare. All Rights Reserved.</p>
-    </div>
+   
   </footer>
 
 {/*<!--=/====== MAKE DONATION POPUP START =========-->*/}
@@ -97,68 +147,24 @@ const Footer = forwardRef((props, ref) =>{
     <h6>Make a Donation</h6>
     {/*<!--=/====== DONATE LIGHT BOX =========-->*/}
     <div className="pop-inner">
-      <form>
-        <label> Project You Want To donate
-          <input type="text" name="project-name"/>
-        </label>
-        <label>Your Donation</label>
-        <ul className="dona-amount">
-          <li><a href="#.">$10</a></li>
-          <li className="active"><a href="#.">$25</a></li>
-          <li><a href="#.">$50</a></li>
-          <li><a href="#.">$75</a></li>
-          <li><a href="#.">$100</a></li>
-          <li><a href="#.">Others</a></li>
-        </ul>
-        
-        {/*<!--=/====== INFORMATION =========-->*/}
-        <ul className="row per-info">
-          <li className="col-lg-12">
-            <label>Your Information</label>
-          </li>
-          <li className="col-sm-6">
-            <input type="text" name="first name" placeholder="First Name"/>
-          </li>
-          <li className="col-sm-6">
-            <input type="text" name="last name" placeholder="Last Name"/>
-          </li>
-          <li className="col-sm-6">
-            <input type="email" name="Email" placeholder="Email"/>
-          </li>
-          <li className="col-sm-6">
-            <input type="text" name="phone" placeholder="Phone"/>
-          </li>
-        </ul>
-        
-        {/*<!--=/====== CRADIT CARD INFO =========-->*/}
-        <ul className="row per-info">
-          <li className="col-lg-12">
-            <label>Credit cArd Information</label>
-          </li>
-          <li className="col-sm-6">
-            <input type="text" name="first name" placeholder="Card Holder Name"/>
-            <label>As Appers on card</label>
-          </li>
-          <li className="col-sm-6">
-            <input type="text" name="last name" placeholder="Credit card number"/>
-            <label>VISA  MC  AMEX  DS</label>
-          </li>
-          <li className="col-sm-6">
-            <input type="email" name="Email" placeholder="Card cvv"/>
-            <label>what is this?</label>
-          </li>
-          <li className="col-sm-3">
-            <input type="text" name="phone" placeholder="Valid From"/>
-            <label>MM/YYYY</label>
-          </li>
-          <li className="col-sm-3">
-            <input type="text" name="card" placeholder="Valid thru"/>
-          </li>
-          <li className="col-sm-12">
-            <button type="submit" className="btn">Send donation</button>
-          </li>
-        </ul>
-      </form>
+     <table className='table'>
+                <thead>
+                  <tr>
+                    <th>Banco</th>
+                    <th>Moneda</th>
+                    <th>Cuenta</th>
+                  </tr>
+                </thead>
+                {accountBank.map((account, i)=>(
+
+                        <tr key={i}>
+                        <td>{account.Bank}</td>
+                        <td>{account.Currency}</td>
+                        <td>{account.Account}</td>
+                        </tr>
+                ))}
+                
+     </table>
     </div>
   </div>
   {/*<!--=/====== MAKE DONATION POPUP END =========-->*/} 

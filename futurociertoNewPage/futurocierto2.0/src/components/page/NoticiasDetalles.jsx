@@ -2,6 +2,7 @@ import React, {useEffect, useState, useRef} from 'react'
 import { useParams, Outlet, Link } from 'react-router-dom'
 import { getNewsID } from '../../api/futuroCiertoContentApi'
 import { format } from 'date-fns'
+import ScrollToTop from '../ScrollToTop'
 
 import Header from "../Header";
 import Footer from "../Footer";
@@ -53,6 +54,7 @@ const NoticiasDetalles = () => {
         onCoundownClick={()=>ScrollToRef(countdownref)}
       />
        <Countdown ref={countdownref}/>
+       <ScrollToTop/>
       <Outlet/>
 
        

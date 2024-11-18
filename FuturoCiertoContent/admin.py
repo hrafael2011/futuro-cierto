@@ -3,7 +3,21 @@ from django.contrib import admin
 from django.db.models.query import QuerySet
 from django.http import HttpRequest
 from simple_history.admin import SimpleHistoryAdmin
-from.models import navigation, news, educations, logo, missionValues, whoWeAre, banner, event, causes
+from.models import (navigation, 
+                    news, 
+                    educations, 
+                    logo, 
+                    missionValues, 
+                    whoWeAre, 
+                    banner, 
+                    event, 
+                    causes, 
+                    collaborator, 
+                    video,
+                    reflectionByJose, 
+                    contact, 
+                    currency, 
+                    accountBank)
 
 
 
@@ -93,9 +107,58 @@ class eventAdmin(SoftDeleteMixin,SimpleHistoryAdmin):
 
 
 @admin.register(causes)
-class eventAdmin(SoftDeleteMixin,SimpleHistoryAdmin):
+class causestAdmin(SoftDeleteMixin,SimpleHistoryAdmin):
     list_display  = ('Cause','is_active')
     list_filter = ('is_active',)
     search_fields = ('Cause',)
     exclude = ('is_hidden',)
 
+
+@admin.register(collaborator)
+class collobaratorAdmin(SoftDeleteMixin,SimpleHistoryAdmin):
+    list_display  = ('Name','is_active')
+    list_filter = ('is_active',)
+    search_fields = ('Name',)
+    exclude = ('is_hidden',)
+
+
+@admin.register(video)
+class videoAdmin(SoftDeleteMixin,SimpleHistoryAdmin):
+    list_display  = ('Title','is_active')
+    list_filter = ('is_active',)
+    search_fields = ('Title',)
+    exclude = ('is_hidden',)
+
+
+@admin.register(reflectionByJose)
+class reflectionAdmin(SoftDeleteMixin,SimpleHistoryAdmin):
+    list_display  = ('Title','is_active')
+    list_filter = ('is_active',)
+    search_fields = ('Title',)
+    exclude = ('is_hidden',)
+
+@admin.register(contact)
+class contactnAdmin(SoftDeleteMixin,SimpleHistoryAdmin):
+    list_display  = ('Email','is_active')
+    list_filter = ('is_active',)
+    search_fields = ('Email',)
+    exclude = ('is_hidden',)
+
+@admin.register(currency)
+class currencynAdmin(SoftDeleteMixin,SimpleHistoryAdmin):
+    list_display  = ('Currency','is_active')
+    list_filter = ('is_active',)
+    search_fields = ('Currency',)
+    exclude = ('is_hidden',)
+
+@admin.register(accountBank)
+class AccountBankAdmin(SoftDeleteMixin,SimpleHistoryAdmin):
+    list_display  = ('Bank','is_active')
+    list_filter = ('is_active',)
+    search_fields = ('Bank',)
+    exclude = ('is_hidden',)
+
+
+   
+
+    

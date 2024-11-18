@@ -14,6 +14,7 @@ import Noticias from './components/page/Noticias.jsx'
 import NoticiasDetalles from './components/page/NoticiasDetalles.jsx'
 import EducacionDetalles from './components/page/EducacionDetalles.jsx'
 
+
 const router = createBrowserRouter ([
 
   {
@@ -27,15 +28,6 @@ const router = createBrowserRouter ([
   {
     path:"/mision-valores",
     element: <MisionYValores/>
-
-  },
-  {
-    path:"/contactos",
-    element: <Contacto/>
-
-  },{
-    path:"/donar",
-    element: <Donar/>
 
   },
   {
@@ -60,6 +52,7 @@ const router = createBrowserRouter ([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    
    <RouterProvider router={router}/>
   </React.StrictMode>
 )

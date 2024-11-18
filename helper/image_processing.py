@@ -1,4 +1,4 @@
-
+from django.core.exceptions import ValidationError
 from PIL import Image
 import os
 
@@ -19,3 +19,18 @@ def processImage(image_path, size, dir):
 
                 # Retornar la nueva ruta de la imagen en formato webp
                 return new_image_path
+
+
+def validateVideo(file):
+        
+        #  Tamaño maximo en bytes (20 MB en este ejemplo)
+
+        max_size = 20 * 1024 * 1024
+        if file.size > max_size:
+                raise ValidationError("El Tamaño del archivo no debe exceder los 20 MB")
+        
+        # Validar Formato
+        valid_formats = ['video/mp4', 'video/webm']
+        if file.file.content_type not in valid_formats:
+                raise ValidationError("Solo se permiten archivos MP4 y Webm.")
+

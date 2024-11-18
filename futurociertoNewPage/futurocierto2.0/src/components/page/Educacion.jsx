@@ -5,6 +5,7 @@ import Header from '../Header'
 import Footer from '../Footer'
 import Banner from '../Banner'
 import Countdown from '../Countdown'
+import ScrollToTop from '../ScrollToTop'
 
 
 const Educacion = () => {
@@ -46,6 +47,7 @@ const Educacion = () => {
       />
         <Banner/>
         <Countdown ref={countdownref}/>
+        <ScrollToTop/>
       <Outlet/>
 
       <section className="flex flex-col  max-h-[80%]  w-[90%] ml-[5%] my-32">

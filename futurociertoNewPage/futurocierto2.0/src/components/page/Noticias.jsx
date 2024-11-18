@@ -5,6 +5,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 import Banner from "../Banner";
 import Countdown from "../Countdown";
+import ScrollToTop from "../ScrollToTop";
 
 const Noticias = () => {
   const [newList, setNewsList] = useState([]);
@@ -44,6 +45,7 @@ onContactClick={()=>ScrollToRef(footerRef)}
 onCoundownClick={()=>ScrollToRef(countdownref)}/>
       <Banner/>
       <Countdown ref={countdownref}/>
+      <ScrollToTop/>
       <Outlet/>
      
 

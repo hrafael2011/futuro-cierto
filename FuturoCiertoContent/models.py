@@ -1,8 +1,11 @@
 from django.db import models
+from ckeditor.fields import RichTextField
+from django.core.validators import RegexValidator
 #from django.contrib.auth.models import User
 from simple_history.models import HistoricalRecords
-from helper.image_processing import processImage
-from django.utils import timezone
+from helper.image_processing import processImage , validateVideo
+
+
 
 
 # Create your models here.
@@ -40,7 +43,7 @@ class navigation(models.Model):
 class news(models.Model):
      NewID = models.AutoField(primary_key=True)
      Title = models.CharField(max_length=255, null=False, verbose_name='Titulo')
-     Content = models.TextField( null=False, verbose_name='Contenido')
+     Content =  RichTextField( null=False, verbose_name='Contenido')
      Image = models.ImageField(null=True, upload_to= "articles/", verbose_name='Imagen' )
      TextAlt = models.CharField(max_length=255, null=False, verbose_name='Texto Alternativo')
      Description = models.CharField(max_length=255, null=True, verbose_name='Descripción')
@@ -75,7 +78,7 @@ class news(models.Model):
 class educations(models.Model):
      EducationID = models.AutoField(primary_key=True)
      Title = models.CharField(max_length=255, null=False, verbose_name='Titulo')
-     Content = models.TextField( null=False, verbose_name='Contenido')
+     Content =RichTextField( null=False, verbose_name='Contenido')
      Image = models.ImageField(null=True, upload_to= "articles_educations", verbose_name='Imagen' )
      TextAlt = models.CharField(max_length=255, null=False, verbose_name='Texto Alternativo')
      Description = models.CharField(max_length=255, null=True, verbose_name='Descripción')
@@ -307,6 +310,188 @@ class causes(models.Model):
     class Meta:
           verbose_name = 'Causa'
           verbose_name_plural = 'Causa'
+
+
+
+class collaborator(models.Model):
+    CollaboratorID = models.AutoField(primary_key=True)
+    Name = models.CharField(max_length=255, null=False, blank=False, verbose_name='Nombre')
+    Image = models.ImageField(null=False, blank=False, upload_to='collobator/', verbose_name='Imagen')
+    Description = models.CharField(max_length=255, null=False, blank=False, verbose_name='Descripción')
+    TextAlt = models.CharField(max_length=255, null=True, blank=True, verbose_name='Texto Alternativo')
+    Historical = HistoricalRecords()
+    is_active = models.BooleanField(default=True, verbose_name='Activo')
+    is_hidden = models.BooleanField(default=False)
+
+    def delete(self, *args, **kwargs):
+        self.is_hidden = True
+        self.is_active = True
+        self.save()
+    
+    def save(self, *args, **kwargs):
+    
+     
+     super(collaborator, self).save(*args, **kwargs)
+
+      
+         # Llamar a la función pasándole la ruta, tamaño y directorio
+     new_image_path = processImage(self.Image.path, size=(135, 135), dir='collobator/')
+
+        # Actualizar el campo 'Image' con la nueva ruta de la imagen en formato WebP
+     self.Image = new_image_path
+
+        #Volver a guardar el modelo para actulizar la imagen con el nuevo formato
+     super(collaborator, self).save(*args, **kwargs)
+
+    class Meta:
+          verbose_name = 'Colaborador'
+          verbose_name_plural = 'Colaborador'
+
+
+class video(models.Model):
+    VideoID = models.AutoField(primary_key=True)
+    Title = models.CharField(max_length=255)
+    VideoFile = models.FileField(upload_to='videos/', validators=[validateVideo])
+    Historical = HistoricalRecords()
+    is_active = models.BooleanField(default=True, verbose_name='Activo')
+    is_hidden = models.BooleanField(default=False)
+
+
+   
+
+    def delete(self, *args, **kwargs):
+          self.is_hidden = True
+          self.is_active = False
+          self.save()
+      
+    def save(self, *args, **kwargs):
+
+        if self.is_active:
+            # Desactivar todos los otros elementos activos
+            video.objects.exclude(VideoID=self.VideoID).filter(is_active=True).update(is_active=False)
+        super(video, self).save(*args, **kwargs)
+
+
+
+class reflectionByJose(models.Model):
+       ReflectionID = models.AutoField(primary_key=True)
+       Title = models.CharField(max_length=255, null=True, blank=True, verbose_name='Titulo')
+       Comment1 = RichTextField(max_length=450 , null=False,  default='', verbose_name='Comentario Donante 1')
+       Comment2 = RichTextField(max_length=450 , null=False, default='',  verbose_name='Comentario Donante 2')
+       Comment3 = RichTextField(max_length=450, null=False,   default='', verbose_name='Comentario Donante 3')
+       Image = models.ImageField(null=True, blank=True, upload_to='event/', verbose_name='Imagen ')
+       TextAlt = models.CharField(max_length=255, null=True, blank=True, verbose_name='Texto Alternativo')
+       Historical = HistoricalRecords()
+       is_active = models.BooleanField(default=True, verbose_name='Activo')
+       is_hidden = models.BooleanField(default=False)
+
+       def delete(self, *args, **kwargs):
+          self.is_hidden = True
+          self.is_active = False
+          self.save()
+      
+       def save(self, *args, **kwargs):
+
+        if self.is_active:
+            # Desactivar todos los otros elementos activos
+            reflectionByJose.objects.exclude(ReflectionID=self.ReflectionID).filter(is_active=True).update(is_active=False)
+        super(reflectionByJose, self).save(*args, **kwargs)
+
+      
+         # Llamar a la función pasándole la ruta, tamaño y directorio
+        new_image_path = processImage(self.Image.path, size=(200, 190), dir='event/')
+
+        # Actualizar el campo 'Image' con la nueva ruta de la imagen en formato WebP
+        self.Image = new_image_path
+
+        #Volver a guardar el modelo para actulizar la imagen con el nuevo formato
+        super(reflectionByJose, self).save(*args, **kwargs)
+
+       class Meta:
+          verbose_name = 'Reflección'
+          verbose_name_plural = 'Reflección'
+
+
+class contact(models.Model):
+
+    #validacion phone
+    
+
+
+    ContactID =models.AutoField(primary_key=True)
+    Phone = models.CharField(max_length=255, null=False, verbose_name='Telefono')
+    Email = models.EmailField(max_length=255, null=False,blank=False)
+    LinkFacebook = models.CharField(max_length=255, null=False,blank=False)
+    LinkInstagram = models.CharField(max_length=255, null=False,blank=False)
+    LinkTweeter = models.CharField(max_length=255, null=False,blank=False)
+    Historical = HistoricalRecords()
+    is_active = models.BooleanField(default=True, verbose_name='Activo')
+    is_hidden = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = 'Contacto'
+        verbose_name_plural = 'Contacto'
+
+    def delete(self, *args, **kwargs):
+          self.is_hidden = True
+          self.is_active = False
+          self.save()
+      
+    def save(self, *args, **kwargs):
+
+        if self.is_active:
+            # Desactivar todos los otros elementos activos
+            contact.objects.exclude(ContactID=self.ContactID).filter(is_active=True).update(is_active=False)
+        super(contact, self).save(*args, **kwargs)
+
+
+class currency(models.Model):
+    CurrencyID = models.AutoField(primary_key=True)
+    Currency = models.CharField(max_length=100 , null=False, blank=False, verbose_name='Moneda')
+    Historical = HistoricalRecords()
+    is_active = models.BooleanField(default=True, verbose_name='Activo')
+    is_hidden = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = 'Moneda'
+        verbose_name_plural = 'Moneda'
+
+    def delete(self, *args, **kwargs):
+          self.is_hidden = True
+          self.is_active = False
+          self.save()
+
+    def __str__(self):
+        return  self.Currency
+      
+
+class accountBank(models.Model):
+
+    AccountID = models.AutoField(primary_key=True)
+    Bank = models.CharField(max_length=255 , null=False, blank=False, verbose_name='Banco' )
+    Account = models.CharField(max_length=255, null=True, blank=False, verbose_name='Cuenta' )
+    Currency = models.ForeignKey(currency, blank=True, null=True, on_delete=models.CASCADE,  limit_choices_to={'is_active': True}, verbose_name='Moneda')
+    Historical = HistoricalRecords()
+    is_active = models.BooleanField(default=True, verbose_name='Activo')
+    is_hidden = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = 'Cuenta de Banco'
+        verbose_name_plural = 'Cuenta de Banco'
+
+    def delete(self, *args, **kwargs):
+          self.is_hidden = True
+          self.is_active = False
+          self.save()
+
+
+
+
+
+
+
+
+    
           
           
 
