@@ -24,6 +24,10 @@ function App() {
   const footerRef = useRef(null);
   const countdownref = useRef(null);
 
+  const[isOpenModal, setIsOpenModal] = useState(false)
+  const openModal = () => setIsOpenModal(true)
+  const closeModal = () => setIsOpenModal(false)
+
  
 
 
@@ -31,12 +35,19 @@ function App() {
     <>
       <Header 
       onContactClick={()=>scrollToRef(footerRef)}
-      onCoundownClick={()=>scrollToRef(countdownref)}/>
+      onCoundownClick={()=>scrollToRef(countdownref)}
+      openModal ={openModal}
+      
+      />
       <ScrollToTop/>
       <Banner/>
       <Countdown ref={countdownref}/>
       <Content/>
-      <Footer ref={footerRef}/>
+      <Footer ref={footerRef}
+      isOpenModal={isOpenModal}
+      closeModal={closeModal}
+      
+      />
 
 
     </>

@@ -5,7 +5,7 @@ import { getNav,getLogo } from '../api/futuroCiertoContentApi';
 
 
 
-const Header = ({onContactClick, onCoundownClick}) => {
+const Header = ({onContactClick, onCoundownClick,openModal}) => {
 
   const[nav, setNav] = useState([])
   const[logo, setLogo] = useState([])
@@ -52,16 +52,16 @@ const Header = ({onContactClick, onCoundownClick}) => {
     <div className="container">
       <ul className="left-bar-side">
         <li>
-          <p className="font-lora"><i><img src="src/assets/images/top-bar-icon.png" alt=""/></i> No one has Ever Become Poor from Giving! </p>
+          <p className="font-lora"><i><img src="src/assets/images/top-bar-icon.png" alt=""/></i> ¡Nadie se ha hecho pobre por dar! </p>
         
         </li>
       </ul>
       <ul className="right-bar-side social_icons">
         <li className="padding-r-20">
-          <p className="font-lora">Phone: (01) 800 433 633</p>
+          <p className="font-lora">Telefono: (809) 696 - 7681</p>
         </li>
         <li>
-          <p className="font-lora">Mail: Info@example.com</p>
+          <p className="font-lora">Mail: fundacionfututocierto@gmail.com</p>
         </li>
       </ul>
     </div>
@@ -83,7 +83,7 @@ const Header = ({onContactClick, onCoundownClick}) => {
         </div>
       
      {/*<!--======= DONATE NOW BTN =========-->*/} 
-      <div className="btn-right"> <a href="#make-donation" className="btn popup-with-zoom-anim"><i className="fa fa-heart-o"></i>donate now</a> </div>
+      <div className="btn-right"> <button onClick={openModal} className="btn popup-with-zoom-anim"><i className="fa fa-heart-o"></i>Donar Ahora</button> </div>
     </div>
     
     

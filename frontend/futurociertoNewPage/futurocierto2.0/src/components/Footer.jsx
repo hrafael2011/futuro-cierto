@@ -1,16 +1,21 @@
 import React, {forwardRef, useState, useEffect} from 'react'
 import { Link    } from 'react-router-dom';
 import { Link as ScrollLink } from 'react-scroll';
+import Modal from 'react-modal'
 import { getContact, getNav, getaccountBank } from '../api/futuroCiertoContentApi';
 
 
 
 const Footer = forwardRef((props, ref) =>{
+  const { isOpenModal, closeModal } = props;
 
   const [contact, setContact] = useState([]);
   const[nav, setNav] = useState([])
   const[accountBank, setAccountBank] = useState([])
-  
+
+ 
+
+
   useEffect(()=>{
     const GetContact = async () =>{
 
@@ -50,11 +55,21 @@ const Footer = forwardRef((props, ref) =>{
     } catch (error) {
       console.log('Error Fetching Data Account Bank', error)
       
-    }
+    } 
    }
    GetAccoutBank()
-  },[]);
+  },[]); 
 
+
+  const handleOpenPopup = () => {
+    console.log('Funciona'); 
+    const url = 'https://www.paypal.com/donate?token=ELWHlXZQcoTZ3XQ6MvVKXXpUeKzdM9unGoFK9IyFX-yq4dvh_BJlP8GUEtJc6EU7wDMECeP-f7hlOK8-'; 
+    const windowFeatures = 'width=800,height=600,scrollbars=yes,resizable=yes'; 
+    window.open(url, 'Futuro Cierto RD', windowFeatures); 
+
+    
+ };
+ 
 
 
   return (
@@ -143,30 +158,52 @@ const Footer = forwardRef((props, ref) =>{
   </footer>
 
 {/*<!--=/====== MAKE DONATION POPUP START =========-->*/}
-  <div id="make-donation" className="donation-pop zoom-anim-dialog mfp-hide">
-    <h6>Make a Donation</h6>
+
+<Modal 
+isOpen={isOpenModal} 
+onRequestClose={closeModal}
+appElement={document.getElementById('root')}
+contentLabel="Example Modal"
+      className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[9999] bg-white rounded-lg shadow-lg p-4 max-w-4xl w-full h-auto max-h-[90vh] overflow-y-auto"
+      overlayClassName="fixed inset-0 bg-black bg-opacity-50 z-[9998]" // Fondo oscuro semi-transparente
+      ariaHideApp={false}
+
+>
+
+    <h6 className='flex items-center justify-center bg-green-600 w-[100%] h-24 text-3xl font-bold '>Hacer una Donación</h6>
     {/*<!--=/====== DONATE LIGHT BOX =========-->*/}
-    <div className="pop-inner">
-     <table className='table'>
+    <div className="pop-inner flex flex-col">
+     <table className='table  my-16 '>
                 <thead>
                   <tr>
-                    <th>Banco</th>
-                    <th>Moneda</th>
-                    <th>Cuenta</th>
+                    <th className='w-[30%] text-center' scope='col'>BANCO</th>
+                    <th className='w-[30%] text-center' scope='col'>MONEDA</th>
+                    <th className='w-[30%] text-center' scope='col'>CUENTA</th>
                   </tr>
                 </thead>
                 {accountBank.map((account, i)=>(
 
-                        <tr key={i}>
-                        <td>{account.Bank}</td>
-                        <td>{account.Currency}</td>
-                        <td>{account.Account}</td>
+                        <tr className='border-b' key={i}>
+                        <td className='py-5 text-center text-gray-500 font-bold'>{account.Bank}</td>
+                        <td className='text-center text-center text-gray-500 font-bold'>{account.currency_name}</td>
+                        <td className='text-center text-gray-500 font-bold'>{account.Account}</td>
                         </tr>
                 ))}
                 
      </table>
+     <button 
+  id="paypal-button" 
+  onClick={handleOpenPopup} 
+  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[250px] mx-auto mb-12 h-[40px] text-2xl"
+>
+  Dona con PayPal
+</button>
+
     </div>
-  </div>
+  
+</Modal>
+
+
   {/*<!--=/====== MAKE DONATION POPUP END =========-->*/} 
   
   {/*<!--=/====== BECOME A volunteer =========-->*/}
