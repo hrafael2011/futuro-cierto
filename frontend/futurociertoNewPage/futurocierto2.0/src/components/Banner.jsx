@@ -1,72 +1,51 @@
-import React, {useState, useEffect} from 'react'
-import { getBanner } from '../api/futuroCiertoContentApi';
+import React, { useState, useEffect } from "react";
+
+import contentApi from "../api/contentApi";
 
 const Banner = () => {
+  const contentBanner = contentApi();
+  const [banner, setBanner] = useState([]);
 
-
-  const[banner, setBanner] = useState([]);
-
-
-  useEffect (()=>{
-    const loadBanner = async () =>{
-     try{
-        const response = await getBanner();
-        setBanner(response.data)
-        console.log('Estos son los datos del banner', response)
-      }
-      catch(error){
-        console.error('error feching data', error)
+  useEffect(() => {
+    const fetchEvent = async () => {
+      try {
+        const response = await contentBanner.get("/banner/");
+        setBanner(response.data);
+      } catch (error) {
+        console.error("Error fetching Banner Data:", error);
       }
     };
-    loadBanner()
-  },[]);
 
+    fetchEvent();
+  }, [contentBanner]);
 
-
-
-
-
-let bannerImage = window.location.pathname;
-
-/*
-
-if(bannerImage.length == ''){
-  bannerImage = window.location.pathname
-}else{
-  bannerImage = window.location.pathname.substring(1)
-}*/
-
-console.log('Imagen del Banner',bannerImage)
-
+  let bannerImage = window.location.pathname;
 
   return (
     <div>
       {/*<!--======= BANNER =========-->*/}
-  <div id="banner">
-    <div className="flex-banner">
-      <ul className="slides">
-        
-        {/*<!--======= BANNER SLIDE 1 =========-->*/}
-        <li> 
-        {banner.map((bannerItem, i)=>(
-           bannerItem.url_name == bannerImage &&(
-          
-          <img key={bannerItem.BannerID} src={bannerItem.Image} alt={bannerItem.TextAlt} /> )
-
-        ))}
-        
-          
-          
-         
-        </li>
-          {/*<!--======= BANNER SLIDE 2 =========-->*/}
-        
-       
-      </ul>
+      <div id="banner">
+        <div className="flex-banner">
+          <ul className="slides">
+            {/*<!--======= BANNER SLIDE 1 =========-->*/}
+            <li>
+              {banner.map(
+                (bannerItem, i) =>
+                  bannerItem.url_name == bannerImage && (
+                    <img
+                      key={bannerItem.BannerID}
+                      src={bannerItem.Image}
+                      alt={bannerItem.TextAlt}
+                    />
+                  )
+              )}
+            </li>
+            {/*<!--======= BANNER SLIDE 2 =========-->*/}
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
-    </div>
-  )
-}
+  );
+};
 
-export default Banner
+export default Banner;

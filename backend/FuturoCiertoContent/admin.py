@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.db.models.query import QuerySet
 from django.http import HttpRequest
 from simple_history.admin import SimpleHistoryAdmin
+
 from.models import (navigation, 
                     news, 
                     educations, 
@@ -14,7 +15,7 @@ from.models import (navigation,
                     causes, 
                     collaborator, 
                     video,
-                    reflectionByJose, 
+                    whatOurDonorsSay, 
                     contact, 
                     currency, 
                     accountBank)
@@ -31,12 +32,11 @@ class SoftDeleteMixin:
 # Register your models here.
 @admin.register(navigation)
 class NavigationAdmin(SoftDeleteMixin,SimpleHistoryAdmin): #admin.ModelAdmin fue cambiado por simpleHistoryAdmin , porque ese extendie a la clase admin , por ende heredad todas su propiedades
-    list_display  = ('PageName','Url','is_active')
+    list_display  = ('PageName','PageName_en','Url','is_active')
     list_filter = ('is_active',)
     search_fields = ('PageName',)
     exclude = ('is_hidden',)
-
-     #readonly_fields = ('CreateAt','UpdateAt')
+  
    
 
 #admin.site.register(navigation, NavigationAdmin)
@@ -130,8 +130,8 @@ class videoAdmin(SoftDeleteMixin,SimpleHistoryAdmin):
     exclude = ('is_hidden',)
 
 
-@admin.register(reflectionByJose)
-class reflectionAdmin(SoftDeleteMixin,SimpleHistoryAdmin):
+@admin.register(whatOurDonorsSay)
+class whatOurDonorsSayAdmin(SoftDeleteMixin,SimpleHistoryAdmin):
     list_display  = ('Title','is_active')
     list_filter = ('is_active',)
     search_fields = ('Title',)

@@ -13,7 +13,7 @@ from .views import (
          causeView,
          collaboratorView,
          videoView,
-         reflectionView,
+         whatOurDonorsSayView,
          contactView,
          accountBankView
          
@@ -34,7 +34,7 @@ router.register(r'education',educationView, basename='education')
 router.register(r'cause',causeView, basename='cause')
 router.register(r'colloborator',collaboratorView, basename='colloborator')
 router.register(r'video',videoView, basename='video')
-router.register(r'reflection',reflectionView, basename='reflection')
+router.register(r'donatorSay',whatOurDonorsSayView, basename='donatorSay')
 router.register(r'contact',contactView, basename='contact')
 router.register(r'accountBank',accountBankView, basename='accountBank')
 

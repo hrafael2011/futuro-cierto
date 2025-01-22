@@ -4,6 +4,7 @@ from django.core.validators import RegexValidator
 #from django.contrib.auth.models import User
 from simple_history.models import HistoricalRecords
 from helper.image_processing import processImage , validateVideo
+from helper.translation_helper import TranslationHelper
 
 
 
@@ -16,7 +17,8 @@ from helper.image_processing import processImage , validateVideo
 class navigation(models.Model):
     NavId = models.AutoField(primary_key=True,  verbose_name='ID')
     PageName = models.CharField(max_length=255, blank=True, verbose_name='Pagína')
-    Url = models.CharField(max_length=255)
+    Url = models.CharField(max_length=255, blank=True)
+    PageName_en = models.CharField(max_length=255, blank=True, verbose_name='page')
     CreateAt = models.DateTimeField(auto_now_add=True, verbose_name='Fecha Creación')
     UpdateAt = models.DateTimeField(auto_now=True, null=True, verbose_name='Fecha Acualización')
     Historical = HistoricalRecords()
@@ -25,6 +27,13 @@ class navigation(models.Model):
 
     def __str__(self):
         return  self.Url
+    
+    def save(self, *args, **kwargs):
+        # Traducir automáticamente si PageName está lleno y PageName_en está vacío
+        if self.PageName and not self.PageName_en:
+            translator = TranslationHelper()
+            self.PageName_en = translator.translate(self.PageName)
+        super().save(*args, **kwargs)
 
     
     def delete(self, *args, **kwargs):
@@ -44,6 +53,8 @@ class news(models.Model):
      NewID = models.AutoField(primary_key=True)
      Title = models.CharField(max_length=255, null=False, verbose_name='Titulo')
      Content =  RichTextField( null=False, verbose_name='Contenido')
+     Title_en = models.CharField(max_length=255, blank=True, null=True, verbose_name='Title')
+     Content_en =  RichTextField( null=True, blank=True,verbose_name='Content')
      Image = models.ImageField(null=True, upload_to= "articles/", verbose_name='Imagen' )
      TextAlt = models.CharField(max_length=255, null=False, verbose_name='Texto Alternativo')
      Description = models.CharField(max_length=255, null=True, verbose_name='Descripción')
@@ -53,12 +64,24 @@ class news(models.Model):
      is_active = models.BooleanField(default=True, verbose_name='Activo')
      is_hidden = models.BooleanField(default=False)  
 
+
+     
+
      def delete(self, *args, **kwargs):
           self.is_hidden = True
           self.is_active = False
           self.save()
 
      def save(self, *args, **kwargs):
+
+        translator = TranslationHelper()
+
+        if self.Title and not self.Title_en:
+             self.Title_en = translator.translate(self.Title)
+
+        if self.Content and not self.Content_en:
+             self.Content_en = translator.translate(self.Content)
+        
 
         super(news, self).save(*args, **kwargs)
 
@@ -79,6 +102,8 @@ class educations(models.Model):
      EducationID = models.AutoField(primary_key=True)
      Title = models.CharField(max_length=255, null=False, verbose_name='Titulo')
      Content =RichTextField( null=False, verbose_name='Contenido')
+     Title_en = models.CharField(max_length=255, blank=True, verbose_name='title')
+     Content_en =RichTextField( blank=True, verbose_name='content')
      Image = models.ImageField(null=True, upload_to= "articles_educations", verbose_name='Imagen' )
      TextAlt = models.CharField(max_length=255, null=False, verbose_name='Texto Alternativo')
      Description = models.CharField(max_length=255, null=True, verbose_name='Descripción')
@@ -94,6 +119,13 @@ class educations(models.Model):
           self.save()
 
      def save(self, *args, **kwargs):
+        translator = TranslationHelper()
+
+        if self.Title and not self.Title_en:
+             self.Title_en = translator.translate(self.Title)
+
+        if self.Content and not self.Content_en:
+             self.Content_en = translator.translate(self.Content)
 
         super(educations, self).save(*args, **kwargs)
 
@@ -144,10 +176,16 @@ class missionValues(models.Model):
      missionValuesID = models.AutoField(primary_key=True)
      Title_mission = models.CharField(max_length=255, null=False, verbose_name='Titulo Misión')
      Content_mission = models.TextField( null=False, verbose_name='Contenido Misión')
+     Title_mission_en = models.CharField(max_length=255, blank=True, verbose_name='Mission Title')
+     Content_mission_en = models.TextField( blank=True, verbose_name='Mission Content')
      Title_objetive = models.CharField(max_length=255, null=False, verbose_name='Titulo Objetivo')
      Content_objetive = models.TextField( null=False, verbose_name='Contenido Objetivo')
+     Title_objetive_en = models.CharField(max_length=255, blank=True, verbose_name='Objetive Title')
+     Content_objetive_en = models.TextField( blank=True, verbose_name='Objetive Content')
      Title_motivation = models.CharField(max_length=255, null=True, verbose_name='Titulo Motivación')
      Content_motivation = models.TextField( null=True, verbose_name='Contenido Motivación')
+     Title_motivation_en = models.CharField(max_length=255, blank=True, verbose_name='Motivation Title')
+     Content_motivation_en = models.TextField( blank=True, verbose_name='Content-Motivation-en')
      CreateAt = models.DateTimeField(auto_now_add=True)
      UpdateAt = models.DateTimeField(auto_now=True, null=True)
      Historical = HistoricalRecords()
@@ -161,6 +199,25 @@ class missionValues(models.Model):
           self.save()
 
      def save(self, *args, **kwargs):
+        translator = TranslationHelper()
+
+        if self.Title_mission and not self.Title_mission_en:
+             self.Title_mission_en = translator.translate(self.Title_mission)
+
+        if self.Content_mission and not self.Content_mission_en:
+             self.Content_mission_en = translator.translate(self.Content_mission)
+
+        if self.Title_objetive and not self.Title_objetive_en:
+             self.Title_objetive_en = translator.translate(self.Title_objetive)
+
+        if self.Content_objetive and not self.Content_objetive_en:
+             self.Content_objetive_en = translator.translate(self.Content_objetive)
+        
+        if self.Title_motivation and not self.Title_motivation_en:
+             self.Title_motivation_en = translator.translate(self.Title_motivation)
+
+        if self.Content_motivation and not self.Content_motivation_en:
+             self.Content_motivation_en = translator.translate(self.Content_motivation)
   
         if self.is_active:
             # Desactivar todos los otros elementos activos
@@ -178,6 +235,8 @@ class whoWeAre(models.Model):
      whoWeAreID = models.AutoField(primary_key=True)
      Title = models.CharField(max_length=255, null=False, verbose_name='Titulo')
      Content = models.TextField( null=False, verbose_name='Contenido')
+     Title_en = models.CharField(max_length=255, blank=True, verbose_name='Title')
+     Content_en = models.TextField( blank=True, verbose_name='Content')
      CreateAt = models.DateTimeField(auto_now_add=True)
      UpdateAt = models.DateTimeField(auto_now=True, null=True)
      Historical = HistoricalRecords()
@@ -190,6 +249,14 @@ class whoWeAre(models.Model):
           self.save()
 
      def save(self, *args, **kwargs):
+        translator = TranslationHelper()
+
+        if self.Content and not self.Content_en:
+             self.Content_en = translator.translate(self.Content)
+
+        if self.Title and not self.Title_en:
+             self.Title_en = translator.translate(self.Title)
+
         if self.is_active:
             # Desactivar todos los otros elementos activos
             whoWeAre.objects.exclude(whoWeAreID=self.whoWeAreID).filter(is_active=True).update(is_active=False)
@@ -242,6 +309,8 @@ class event(models.Model):
        EventID = models.AutoField(primary_key=True)
        Event = models.CharField(max_length=255, blank=False, null=False,  verbose_name='Titulo del evento')
        Address = models.CharField(max_length=255, blank=True, null=True, verbose_name='Direccion del evento')
+       Event_en = models.CharField(max_length=255, blank=True,  verbose_name='Event Title')
+       Address_en = models.CharField(max_length=255, blank=True, verbose_name='Event Address')
        EventDate = models.DateTimeField()
        Image = models.ImageField(null=True, blank=True, upload_to='event/', verbose_name='Imagen Evento')
        TextAlt = models.CharField(max_length=255, null=True, blank=True, verbose_name='Texto Alternativo')
@@ -255,6 +324,15 @@ class event(models.Model):
           self.save()
       
        def save(self, *args, **kwargs):
+
+        translator = TranslationHelper()
+
+        if self.Event and not self.Event_en:
+             self.Event_en = translator.translate(self.Event)
+
+        if self.Address and not self.Address_en:
+             self.Address_en = translator.translate(self.Address)
+
 
         if self.is_active:
             # Desactivar todos los otros elementos activos
@@ -282,6 +360,9 @@ class causes(models.Model):
     Image = models.ImageField(null=False, blank=False, upload_to='cause/', verbose_name='Imagen Causa')
     Title = models.CharField(max_length=255, null=False, blank=False, verbose_name='Titulo')
     Description = models.CharField(max_length=255, null=False, blank=False, verbose_name='Descripción')
+    Cause_en = models.CharField(max_length=255, blank=True, verbose_name='Cause')
+    Title_en = models.CharField(max_length=255,  blank=True, verbose_name='Title')
+    Description_en = models.CharField(max_length=255,  blank=True, verbose_name='Description')
     TextAlt = models.CharField(max_length=255, null=True, blank=True, verbose_name='Texto Alternativo')
     Historical = HistoricalRecords()
     is_active = models.BooleanField(default=True, verbose_name='Activo')
@@ -293,8 +374,17 @@ class causes(models.Model):
         self.save()
     
     def save(self, *args, **kwargs):
-    
-     
+     translator = TranslationHelper()
+
+     if self.Cause and not self.Cause_en:
+             self.Cause_en = translator.translate(self.Cause)
+
+     if self.Title and not self.Title_en:
+             self.Title_en = translator.translate(self.Title)
+
+     if self.Description and not self.Description_en:
+             self.Description_en = translator.translate(self.Description)
+        
      super(causes, self).save(*args, **kwargs)
 
       
@@ -373,12 +463,15 @@ class video(models.Model):
 
 
 
-class reflectionByJose(models.Model):
-       ReflectionID = models.AutoField(primary_key=True)
+class whatOurDonorsSay(models.Model):
+       DonorsSayID = models.AutoField(primary_key=True)
        Title = models.CharField(max_length=255, null=True, blank=True, verbose_name='Titulo')
        Comment1 = RichTextField(max_length=450 , null=False,  default='', verbose_name='Comentario Donante 1')
        Comment2 = RichTextField(max_length=450 , null=False, default='',  verbose_name='Comentario Donante 2')
        Comment3 = RichTextField(max_length=450, null=False,   default='', verbose_name='Comentario Donante 3')
+       Comment1_en = RichTextField(max_length=450 , blank=True, verbose_name='Donator Comment 1')
+       Comment2_en = RichTextField(max_length=450 ,blank=True,  verbose_name='Donator Comment 2')
+       Comment3_en = RichTextField(max_length=450, blank=True,  verbose_name='Donator Comment 3')
        Image = models.ImageField(null=True, blank=True, upload_to='event/', verbose_name='Imagen ')
        TextAlt = models.CharField(max_length=255, null=True, blank=True, verbose_name='Texto Alternativo')
        Historical = HistoricalRecords()
@@ -392,10 +485,21 @@ class reflectionByJose(models.Model):
       
        def save(self, *args, **kwargs):
 
+        translator = TranslationHelper()
+
+        if self.Comment1 and not self.Comment1_en:
+             self.Comment1_en = translator.translate(self.Comment1)
+
+        if self.Comment2 and not self.Comment2_en:
+             self.Comment2_en = translator.translate(self.Comment2)
+
+        if self.Comment3 and not self.Comment3_en:
+             self.Comment3_en = translator.translate(self.Comment3)
+
         if self.is_active:
             # Desactivar todos los otros elementos activos
-            reflectionByJose.objects.exclude(ReflectionID=self.ReflectionID).filter(is_active=True).update(is_active=False)
-        super(reflectionByJose, self).save(*args, **kwargs)
+            whatOurDonorsSay.objects.exclude( DonorsSayID =self. DonorsSayID ).filter(is_active=True).update(is_active=False)
+        super(whatOurDonorsSay, self).save(*args, **kwargs)
 
       
          # Llamar a la función pasándole la ruta, tamaño y directorio
@@ -405,11 +509,11 @@ class reflectionByJose(models.Model):
         self.Image = new_image_path
 
         #Volver a guardar el modelo para actulizar la imagen con el nuevo formato
-        super(reflectionByJose, self).save(*args, **kwargs)
+        super(whatOurDonorsSay, self).save(*args, **kwargs)
 
        class Meta:
-          verbose_name = 'Reflección'
-          verbose_name_plural = 'Reflección'
+          verbose_name = 'Comentarios Donantes'
+          verbose_name_plural = 'Comentarios Donantes'
 
 
 class contact(models.Model):

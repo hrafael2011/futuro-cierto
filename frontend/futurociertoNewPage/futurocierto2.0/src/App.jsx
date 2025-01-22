@@ -5,6 +5,9 @@ import Content from './components/Content'
 import Footer from './components/Footer'
 import Countdown from './components/Countdown'
 import ScrollToTop from './components/ScrollToTop'
+//import { LanguageProvider } from './context/LanguageContext'
+
+
 
 
 const scrollToRef = (ref) =>{
@@ -21,6 +24,8 @@ const scrollToRef = (ref) =>{
 
 function App() {
 
+
+
   const footerRef = useRef(null);
   const countdownref = useRef(null);
 
@@ -33,21 +38,29 @@ function App() {
 
   return (
     <>
-      <Header 
+
+ 
+    <Header 
       onContactClick={()=>scrollToRef(footerRef)}
       onCoundownClick={()=>scrollToRef(countdownref)}
       openModal ={openModal}
       
       />
+        
       <ScrollToTop/>
       <Banner/>
-      <Countdown ref={countdownref}/>
+      <Countdown ref={countdownref}
+      openModal ={openModal}
+      
+      />
       <Content/>
       <Footer ref={footerRef}
       isOpenModal={isOpenModal}
       closeModal={closeModal}
+      openModal ={openModal}
       
       />
+    
 
 
     </>

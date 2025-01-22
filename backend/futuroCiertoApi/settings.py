@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,20 @@ SECRET_KEY = 'django-insecure-&=)%5@(0p4(gqw076#8b_f0b46$&^q1&26p7)ck-g^qiqn%+w9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['futurociertord.azurewebsites.net',
+                 '127.0.0.1','localhost']
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://futurociertord.azurewebsites.net',  # Dominio de tu app con HTTPS
+    'http://futurociertord.azurewebsites.net',
+    'http://localhost:8000/',
+    'http://127.0.0.1:8000/'
+      # Si usas HTTP (temporalmente)
+
+    
+]
+
 
 
 # Application definition
@@ -55,7 +69,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
+
+
+
+
 
 ROOT_URLCONF = 'futuroCiertoApi.urls'
 
@@ -80,7 +99,7 @@ WSGI_APPLICATION = 'futuroCiertoApi.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -90,6 +109,19 @@ DATABASES = {
         }
     }
 }
+
+'''
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.getenv('DB_NAME', BASE_DIR / 'db.sqlite3'),
+        'OPTIONS': {
+            'timeout': 20,
+        }
+    }
+}
+
 
 
 # Password validation
@@ -127,13 +159,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:5173']
+CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 'http://10.0.0.58:5173', 'https://new-page.futurociertord.org']
+CORS_ALLOW_ALL_ORIGINS = True 
+
+
 
 
 REST_FRAMEWORK = {
@@ -142,9 +178,47 @@ REST_FRAMEWORK = {
 }
 
 
-import os
+
 
 #Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+from decouple import config
+
+TRANSLATOR_API_KEY = config('API_KEY_TRANSLATOR', default=None)
+
+
+
+
+# ERROR DETECTION BY LOG
+
+# Ruta base de tu proyecto (asegúrate de que esté definida correctamente)
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Ruta para guardar el archivo de log
+LOG_DIR = BASE_DIR / "logs"
+
+# Crear la carpeta 'logs' si no existe
+if not LOG_DIR.exists():
+    LOG_DIR.mkdir()
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': LOG_DIR / 'api_errors.log',  # Aquí definimos el archivo de log
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',  # Solo registrar errores y niveles superiores
+            'propagate': True,
+        },
+    },
+}
