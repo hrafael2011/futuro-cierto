@@ -32,9 +32,7 @@ const useScrollHandler = (hash, target) => {
   }, [location, hash, target]);
 };
 
-
 const Content = () => {
-
   useScrollHandler("#ComoAyudar", "howCanYouHelp");
   useScrollHandler("#Causas", "causes");
 
@@ -80,7 +78,7 @@ const Content = () => {
     fetchData();
   }, [contentData]);
 
-  // maneja el boton ver mas para aumentar los elementos visibles
+  //Handle the button to see more increase the visible elements
 
   const handleShowMore = () => {
     setVisibleColoborator(
@@ -91,10 +89,6 @@ const Content = () => {
   const handleShowless = () => {
     setVisibleColoborator(4);
   };
-
-
-
-  
 
   return (
     <div>
@@ -166,7 +160,7 @@ const Content = () => {
                   {t("how")} <small>{t("how_can_help")}</small>
                 </span>
                 <hr />
-                <p>{t("howCanHelpText")}</p>
+                <p className="text-2xl">{t("howCanHelpText")}</p>
               </li>
 
               {/* <!--======= FEATURED =========-->*/}
@@ -195,7 +189,7 @@ const Content = () => {
                 {" "}
                 <img
                   className=" w-[422px] h-[656px]"
-                  src="public/donate-img.png"
+                  src="donate-img.PNG"
                   alt=""
                 />{" "}
               </li>
@@ -203,7 +197,6 @@ const Content = () => {
           </div>
         </section>
 
-       
         <section className="donatores">
           <div className="container">
             {/* <!--======= TITTLE =========-->*/}
@@ -211,11 +204,10 @@ const Content = () => {
               <h2>
                 <span className="text-4xl">{t("collaborators")}</span>
               </h2>
-              <p>{t("collaborators_text")}</p>
+              <p className="text-2xl">{t("collaborators_text")}</p>
             </div>
 
-               <div className="w-[100%] ">
-              
+            <div className="w-[100%] ">
               <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 ">
                 {data.collaborator
                   .slice(0, visibleColloborator)
@@ -253,16 +245,14 @@ const Content = () => {
 
                 {visibleColloborator > 4 && (
                   <a href="#." className="btn" onClick={handleShowless}>
-                    {t('less')} <i className="fa fa-arrow-circle-o-right"></i>
+                    {t("less")} <i className="fa fa-arrow-circle-o-right"></i>
                   </a>
                 )}
               </div>
 
               {/* <!--======= DONATOR ROW =========-->*/}
               <div className="col-md-6">
-                <ul className="row">
-                  
-                </ul>
+                <ul className="row"></ul>
               </div>
             </div>
           </div>
@@ -383,7 +373,7 @@ const Content = () => {
               {/* <!--======= ROW =========-->*/}
               <div className="row">
                 <div className="col-md-6">
-                  <h3>
+                  <h3 className="text-2xl">
                     <strong>{t("What")}</strong> {t("donors_say")}
                   </h3>
 
@@ -435,7 +425,7 @@ const Content = () => {
         ))}
 
         {/* <!--======= PROUND =========-->*/}
-        <section className="proud">
+        <section className="proud text-2xl">
           <h2>
             {t("volunters_thanks")} <i className="fa fa-heart"></i>{" "}
             <strong>{t("volunters")}</strong>.

@@ -43208,3 +43208,353 @@ You're accessing the development server over HTTPS, but it only supports HTTP.
 You're accessing the development server over HTTPS, but it only supports HTTP.
 You're accessing the development server over HTTPS, but it only supports HTTP.
 You're accessing the development server over HTTPS, but it only supports HTTP.
+Internal Server Error: /FuturoCiertoContent/docs/
+Traceback (most recent call last):
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\views.py", line 48, in handle_exception
+    return super().handle_exception(exc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\views.py", line 37, in get
+    schema = self.schema_generator.get_schema(request, self.public)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 158, in get_schema
+    links = self.get_links(None if public else request)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 145, in get_links
+    link = view.schema.get_link(path, method, base_url=self.url)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 376, in get_link
+    fields += self.get_serializer_fields(path, method)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 459, in get_serializer_fields
+    serializer = view.get_serializer()
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\generics.py", line 113, in get_serializer
+    kwargs.setdefault('context', self.get_serializer_context())
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\FuturoCiertoContent\views.py", line 123, in get_serializer_context
+    language = self.request.headers.get("Accept-Language", "es")[:2]
+              ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'headers'
+"GET /FuturoCiertoContent/docs/ HTTP/1.1" 500 140135
+Internal Server Error: /FuturoCiertoContent/docs/
+Traceback (most recent call last):
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\views.py", line 48, in handle_exception
+    return super().handle_exception(exc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\views.py", line 37, in get
+    schema = self.schema_generator.get_schema(request, self.public)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 158, in get_schema
+    links = self.get_links(None if public else request)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 145, in get_links
+    link = view.schema.get_link(path, method, base_url=self.url)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 376, in get_link
+    fields += self.get_serializer_fields(path, method)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 459, in get_serializer_fields
+    serializer = view.get_serializer()
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\generics.py", line 113, in get_serializer
+    kwargs.setdefault('context', self.get_serializer_context())
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\FuturoCiertoContent\views.py", line 105, in get_serializer_context
+    language = self.request.headers.get("Accept-Language", "es")[:2]
+             ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'headers'
+"GET /FuturoCiertoContent/docs/ HTTP/1.1" 500 140170
+Internal Server Error: /FuturoCiertoContent/docs/
+Traceback (most recent call last):
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\views.py", line 48, in handle_exception
+    return super().handle_exception(exc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\views.py", line 37, in get
+    schema = self.schema_generator.get_schema(request, self.public)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 158, in get_schema
+    links = self.get_links(None if public else request)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 145, in get_links
+    link = view.schema.get_link(path, method, base_url=self.url)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 376, in get_link
+    fields += self.get_serializer_fields(path, method)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 459, in get_serializer_fields
+    serializer = view.get_serializer()
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\generics.py", line 113, in get_serializer
+    kwargs.setdefault('context', self.get_serializer_context())
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\FuturoCiertoContent\views.py", line 92, in get_serializer_context
+    language = self.request.headers.get("Accept-Language", "es")[:2]
+             ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'headers'
+"GET /FuturoCiertoContent/docs/ HTTP/1.1" 500 140234
+Internal Server Error: /FuturoCiertoContent/docs/
+Traceback (most recent call last):
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\views.py", line 48, in handle_exception
+    return super().handle_exception(exc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\views.py", line 37, in get
+    schema = self.schema_generator.get_schema(request, self.public)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 158, in get_schema
+    links = self.get_links(None if public else request)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 145, in get_links
+    link = view.schema.get_link(path, method, base_url=self.url)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 376, in get_link
+    fields += self.get_serializer_fields(path, method)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 459, in get_serializer_fields
+    serializer = view.get_serializer()
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\generics.py", line 113, in get_serializer
+    kwargs.setdefault('context', self.get_serializer_context())
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\FuturoCiertoContent\views.py", line 61, in get_serializer_context
+    language = self.request.headers.get("Accept-Language", "es")[:2]
+              ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'headers'
+"GET /FuturoCiertoContent/docs/ HTTP/1.1" 500 140735
+Internal Server Error: /FuturoCiertoContent/docs/
+Traceback (most recent call last):
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\views.py", line 48, in handle_exception
+    return super().handle_exception(exc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\views.py", line 37, in get
+    schema = self.schema_generator.get_schema(request, self.public)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 158, in get_schema
+    links = self.get_links(None if public else request)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 145, in get_links
+    link = view.schema.get_link(path, method, base_url=self.url)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 376, in get_link
+    fields += self.get_serializer_fields(path, method)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 459, in get_serializer_fields
+    serializer = view.get_serializer()
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\generics.py", line 113, in get_serializer
+    kwargs.setdefault('context', self.get_serializer_context())
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\FuturoCiertoContent\views.py", line 77, in get_serializer_context
+    language = self.request.headers.get("Accept-Language", "es")[:2]
+              ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'headers'
+"GET /FuturoCiertoContent/docs/ HTTP/1.1" 500 140318
+Internal Server Error: /FuturoCiertoContent/docs/
+Traceback (most recent call last):
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\views.py", line 48, in handle_exception
+    return super().handle_exception(exc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\views.py", line 37, in get
+    schema = self.schema_generator.get_schema(request, self.public)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 158, in get_schema
+    links = self.get_links(None if public else request)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 145, in get_links
+    link = view.schema.get_link(path, method, base_url=self.url)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 376, in get_link
+    fields += self.get_serializer_fields(path, method)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 459, in get_serializer_fields
+    serializer = view.get_serializer()
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\generics.py", line 113, in get_serializer
+    kwargs.setdefault('context', self.get_serializer_context())
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\FuturoCiertoContent\views.py", line 152, in get_serializer_context
+    language = self.request.headers.get("Accept-Language", "es")[:2]  # Idioma
+               ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'headers'
+"GET /FuturoCiertoContent/docs/ HTTP/1.1" 500 140306
+Internal Server Error: /FuturoCiertoContent/docs/
+Traceback (most recent call last):
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\views.py", line 48, in handle_exception
+    return super().handle_exception(exc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\views.py", line 37, in get
+    schema = self.schema_generator.get_schema(request, self.public)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 158, in get_schema
+    links = self.get_links(None if public else request)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 145, in get_links
+    link = view.schema.get_link(path, method, base_url=self.url)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 376, in get_link
+    fields += self.get_serializer_fields(path, method)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\schemas\coreapi.py", line 459, in get_serializer_fields
+    serializer = view.get_serializer()
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\venv\Lib\site-packages\rest_framework\generics.py", line 113, in get_serializer
+    kwargs.setdefault('context', self.get_serializer_context())
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ApiFuturoCiertoContenido\backend\FuturoCiertoContent\views.py", line 178, in get_serializer_context
+    language = self.request.headers.get("Accept-Language", "es")[:2]
+               ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'headers'
+"GET /FuturoCiertoContent/docs/ HTTP/1.1" 500 140282

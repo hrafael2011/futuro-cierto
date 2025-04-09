@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 const Countdown = forwardRef((props, ref) => {
-  const { t } = useTranslation(); // Inicializa el hook
+  const { t } = useTranslation(); //Start hook
   const { openModal } = useModal();
   const contentData = contentApi();
   const [eventDate, setEventDate] = useState(null);
@@ -22,9 +22,8 @@ const Countdown = forwardRef((props, ref) => {
       try {
         const response = await contentData.get("/event/");
         const eventDate = new Date(response.data[0].EventDate);
-        //const id = new Date(response.data.EventID);
 
-        setEventDate(eventDate); // Guardar la fecha del evento
+        setEventDate(eventDate); // Save event date
         setEventName(response.data);
       } catch (error) {
         console.error("Error fetching event data:", error);
@@ -36,7 +35,7 @@ const Countdown = forwardRef((props, ref) => {
 
   useEffect(() => {
     if (eventDate) {
-      startCountdown(eventDate); // Iniciar el contador cuando haya una fecha válida
+      startCountdown(eventDate); //Start the counter when it has a valid date.
     }
   }, [eventDate]);
 
@@ -44,7 +43,6 @@ const Countdown = forwardRef((props, ref) => {
     const interval = setInterval(() => {
       const now = new Date();
       const timeDifference = eventDate.getTime() - now.getTime();
-      console.log("Diferencia de tiempo (ms):", timeDifference);
 
       if (timeDifference <= 0) {
         clearInterval(interval);
@@ -52,7 +50,7 @@ const Countdown = forwardRef((props, ref) => {
         return;
       }
 
-      // Calcular días, horas, minutos y segundos restantes
+      //Caculate days ,hours, minutes and rest seconds
       const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
       const hours = Math.floor(
         (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
@@ -65,7 +63,7 @@ const Countdown = forwardRef((props, ref) => {
       setCountdown({ days, hours, minutes, seconds });
     }, 1000);
 
-    return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
+    return () => clearInterval(interval); //Clear the interval is cleared the component is unmounted
   };
 
   return (
@@ -77,7 +75,7 @@ const Countdown = forwardRef((props, ref) => {
               <div className="event-in">
                 {timeLeft.days > 0 ? (
                   <div className="up-com-event">
-                    <p className="font-lora">{t('next_event')}</p>
+                    <p className="font-lora">{t("next_event")}</p>
                     <div className="row">
                       <div className="col-xs-5">
                         {eventName.map((eventIte, i) => (
@@ -145,14 +143,12 @@ const Countdown = forwardRef((props, ref) => {
                         {t("how_can_help")}
                       </small>
                     </span>
-                   
                     <p className="mt-4">{t("howCanHelpText")}</p>
                     <div className="blog p-8">
-                    <Link to="/#ComoAyudar" className="btn">
-                    
-                      {t("btn_more")}{" "}
-                      <i className="fa fa-arrow-circle-o-right"></i>
-                    </Link>{" "}
+                      <Link to="/#ComoAyudar" className="btn">
+                        {t("btn_more")}{" "}
+                        <i className="fa fa-arrow-circle-o-right"></i>
+                      </Link>{" "}
                     </div>
                   </div>
                 )}
@@ -161,7 +157,7 @@ const Countdown = forwardRef((props, ref) => {
             {/* <!--======= DONATE AMOUNT =========-->*/}
             <li className="col-md-2 amount">
               <h1 className="font-lora">RD$ 50</h1>
-              <p>{t("50peso_message")}</p>
+              <p className="text-2xl">{t("50peso_message")}</p>
             </li>
 
             {/* <!--======= DONATE SLIDER =========-->*/}
@@ -178,9 +174,7 @@ const Countdown = forwardRef((props, ref) => {
             </li>
           </ul>
         </div>
-        
       </div>
-    
     </div>
   );
 });

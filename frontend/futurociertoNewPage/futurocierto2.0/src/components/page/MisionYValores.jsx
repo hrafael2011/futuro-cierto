@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Header from "../Header";
 import Footer from "../Footer";
 import Banner from "../Banner";
@@ -18,7 +18,6 @@ const MisionYValores = () => {
       try {
         const response = await contentMissionValues.get("/missionValues/");
         setMissionVal(response.data);
-        console.log("estos son los datos de la noticia", response);
       } catch (error) {
         console.log("Error Feching Data News", error);
       }
@@ -51,7 +50,7 @@ const MisionYValores = () => {
           <div className="flex flex-col mb-[4%] xl:mb-[5%] sm:mb-[10%] custom1:mb-[15%] custom2:mb-[40%] w-[75%] mx-[12%]  border-t border-green-400 h-[220px] overflow-visible relative z-0">
             <div
               key={i}
-              className=" ml-[45%]  xl:ml-[42%] sm:ml-[40%] custom1:ml-[30%]  custom2:ml-[35%] mb-[-25px] absolute -top-9 text-6xl font-bold relative z-10 bg-white w-48"
+              className="ml-[45%]  xl:ml-[42%] sm:ml-[40%] custom1:ml-[30%]  custom2:ml-[35%] mb-[-25px] absolute -top-9 text-6xl font-bold relative z-10 bg-white w-48"
             >
               {mval.Title_mission}
             </div>
@@ -61,7 +60,7 @@ const MisionYValores = () => {
               </span>
               <div
                 key={i}
-                className="w-[75%] custom1:w-[85%]  w-[75%] custom2:w-[90%] mx-[12%] custom1:mx-[8%] custom2:mx-[4%] text-center custom1:text-justify custom2:text-justify text-2xl"
+                className="w-[75%] custom1:w-[85%]  w-[75%] custom2:w-[90%] mx-[12%] custom1:mx-[8%] custom2:mx-[4%] text-center custom1:text-justify custom2:text-justify text-3xl"
               >
                 {mval.Content_mission}
               </div>
@@ -78,7 +77,7 @@ const MisionYValores = () => {
               <span className="pr-4 text-6xl ml-[45%] my-[12px] text-green-400">
                 <i class="fa-solid fa-bullseye"></i>
               </span>
-              <div className="w-[75%] custom1:w-[85%]  w-[75%] custom2:w-[90%] mx-[12%] custom1:mx-[10%] custom2:mx-[4%] text-center custom1:text-justify custom2:text-justify text-2xl">
+              <div className="w-[75%] custom1:w-[85%]  w-[75%] custom2:w-[90%] mx-[12%] custom1:mx-[10%] custom2:mx-[4%] text-center custom1:text-justify custom2:text-justify text-3xl">
                 {mval.Content_objetive}
               </div>
             </div>
@@ -91,7 +90,7 @@ const MisionYValores = () => {
               <span className="pr-4 text-6xl ml-[45%] my-[12px] text-green-400">
                 <i class="fa-solid fa-certificate"></i>
               </span>
-              <div className="w-[75%] custom1:w-[85%]  w-[75%] custom2:w-[90%] mx-[12%] custom1:mx-[8%] custom2:mx-[4%] text-center custom1:text-justify custom2:text-justify text-2xl">
+              <div className="w-[75%] custom1:w-[85%]  w-[75%] custom2:w-[90%] mx-[12%] custom1:mx-[8%] custom2:mx-[4%] text-center custom1:text-justify custom2:text-justify text-3xl">
                 {mval.Content_motivation}
               </div>
             </div>

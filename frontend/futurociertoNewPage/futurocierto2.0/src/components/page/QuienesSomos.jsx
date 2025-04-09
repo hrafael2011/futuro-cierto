@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 
 const QuienesSomos = () => {
   const contentWhoWeAre = contentApi();
-  const { t } = useTranslation(); // Inicializa el hook
+  const { t } = useTranslation();
   const [woWeAre, setwoWeAre] = useState([]);
 
   useEffect(() => {
@@ -18,7 +18,6 @@ const QuienesSomos = () => {
       try {
         const response = await contentWhoWeAre.get("/whoWeAre/");
         setwoWeAre(response.data);
-        console.log("estos son los datos de la Quienes somos", response);
       } catch (error) {
         console.log("Error Feching Data How We ARE", error);
       }
@@ -60,7 +59,9 @@ const QuienesSomos = () => {
                     <small className="font-sans">{value.Title}</small>
                   </span>
                   <hr />
-                  <p>{value.Content}</p>
+                  <div className="text-3xl">
+                     <div className="prose prose-xl"  dangerouslySetInnerHTML={{ __html: value.formatted_text }} />
+                  </div>
                 </li>
               ))
             ) : (

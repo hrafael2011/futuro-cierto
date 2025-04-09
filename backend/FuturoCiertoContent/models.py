@@ -1,7 +1,5 @@
 from django.db import models
 from ckeditor.fields import RichTextField
-from django.core.validators import RegexValidator
-#from django.contrib.auth.models import User
 from simple_history.models import HistoricalRecords
 from helper.image_processing import processImage , validateVideo
 from helper.translation_helper import TranslationHelper
@@ -29,7 +27,8 @@ class navigation(models.Model):
         return  self.Url
     
     def save(self, *args, **kwargs):
-        # Traducir automáticamente si PageName está lleno y PageName_en está vacío
+
+        # Traslates field PageName in PageName_en
         if self.PageName and not self.PageName_en:
             translator = TranslationHelper()
             self.PageName_en = translator.translate(self.PageName)
@@ -45,8 +44,7 @@ class navigation(models.Model):
     class Meta:
         verbose_name = 'Navegación'
         verbose_name_plural = 'Navegacion'
-        ordering = ['NavId'] # para ordenar por el campo que ponga / el signo menos por delante hace que sea en reversa
-
+        ordering = ['NavId']
         
 
 class news(models.Model):
@@ -85,7 +83,7 @@ class news(models.Model):
 
         super(news, self).save(*args, **kwargs)
 
-        #convertir imagenes               
+        #Convert images               
         new_image_path = processImage(self.Image.path, size=(300, 200), dir='articles/')
         self.Image = new_image_path
         super(news, self).save(*args, **kwargs)
@@ -129,7 +127,7 @@ class educations(models.Model):
 
         super(educations, self).save(*args, **kwargs)
 
-        #convertir imagenes               
+        #Convert images                 
         new_image_path = processImage(self.Image.path, size=(300, 200), dir='articles_educations/')
         self.Image = new_image_path
         super(educations, self).save(*args, **kwargs)
@@ -158,7 +156,8 @@ class logo(models.Model):
      def save(self, *args, **kwargs):
   
         if self.is_active:
-            # Desactivar todos los otros elementos activos
+          
+            #enable the others fields and active items
             logo.objects.exclude(LogoID=self.LogoID).filter(is_active=True).update(is_active=False)
         super(logo, self).save(*args, **kwargs)
 
@@ -234,7 +233,7 @@ class missionValues(models.Model):
 class whoWeAre(models.Model):
      whoWeAreID = models.AutoField(primary_key=True)
      Title = models.CharField(max_length=255, null=False, verbose_name='Titulo')
-     Content = models.TextField( null=False, verbose_name='Contenido')
+     Content = RichTextField( null=False, verbose_name='Contenido')
      Title_en = models.CharField(max_length=255, blank=True, verbose_name='Title')
      Content_en = models.TextField( blank=True, verbose_name='Content')
      CreateAt = models.DateTimeField(auto_now_add=True)
@@ -258,7 +257,7 @@ class whoWeAre(models.Model):
              self.Title_en = translator.translate(self.Title)
 
         if self.is_active:
-            # Desactivar todos los otros elementos activos
+             #disable other active items
             whoWeAre.objects.exclude(whoWeAreID=self.whoWeAreID).filter(is_active=True).update(is_active=False)
         super(whoWeAre, self).save(*args, **kwargs)
 
@@ -287,14 +286,12 @@ class banner(models.Model):
       def save(self, *args, **kwargs):
   
     
-          #if self.is_active:
-            # Desactivar todos los otros elementos activos
-            #banner.objects.exclude(BannerID=self.BannerID).filter(is_active=True).update(is_active=False)
+        
           super(banner, self).save(*args, **kwargs)
         
         
 
-          #convertir imagenes      
+          #convert images      
           new_image_path = processImage(self.Image.path, size=(1920, 926), dir='banner/')
           self.Image = new_image_path
           super(banner, self).save(*args, **kwargs)
@@ -335,18 +332,18 @@ class event(models.Model):
 
 
         if self.is_active:
-            # Desactivar todos los otros elementos activos
+          
             event.objects.exclude(EventID=self.EventID).filter(is_active=True).update(is_active=False)
         super(event, self).save(*args, **kwargs)
 
       
-         # Llamar a la función pasándole la ruta, tamaño y directorio
+       
         new_image_path = processImage(self.Image.path, size=(200, 190), dir='event/')
 
-        # Actualizar el campo 'Image' con la nueva ruta de la imagen en formato WebP
+       
         self.Image = new_image_path
 
-        #Volver a guardar el modelo para actulizar la imagen con el nuevo formato
+       
         super(event, self).save(*args, **kwargs)
 
        class Meta:
@@ -388,13 +385,12 @@ class causes(models.Model):
      super(causes, self).save(*args, **kwargs)
 
       
-         # Llamar a la función pasándole la ruta, tamaño y directorio
+      
      new_image_path = processImage(self.Image.path, size=(356, 200), dir='cause/')
 
-        # Actualizar el campo 'Image' con la nueva ruta de la imagen en formato WebP
      self.Image = new_image_path
 
-        #Volver a guardar el modelo para actulizar la imagen con el nuevo formato
+       
      super(causes, self).save(*args, **kwargs)
 
     class Meta:
@@ -424,13 +420,13 @@ class collaborator(models.Model):
      super(collaborator, self).save(*args, **kwargs)
 
       
-         # Llamar a la función pasándole la ruta, tamaño y directorio
+      
      new_image_path = processImage(self.Image.path, size=(135, 135), dir='collobator/')
 
-        # Actualizar el campo 'Image' con la nueva ruta de la imagen en formato WebP
+       
      self.Image = new_image_path
 
-        #Volver a guardar el modelo para actulizar la imagen con el nuevo formato
+       
      super(collaborator, self).save(*args, **kwargs)
 
     class Meta:
@@ -457,7 +453,7 @@ class video(models.Model):
     def save(self, *args, **kwargs):
 
         if self.is_active:
-            # Desactivar todos los otros elementos activos
+       
             video.objects.exclude(VideoID=self.VideoID).filter(is_active=True).update(is_active=False)
         super(video, self).save(*args, **kwargs)
 
@@ -502,13 +498,13 @@ class whatOurDonorsSay(models.Model):
         super(whatOurDonorsSay, self).save(*args, **kwargs)
 
       
-         # Llamar a la función pasándole la ruta, tamaño y directorio
-        new_image_path = processImage(self.Image.path, size=(200, 190), dir='event/')
+   
+        new_image_path = processImage(self.Image.path, size=(556, 462), dir='event/')
 
-        # Actualizar el campo 'Image' con la nueva ruta de la imagen en formato WebP
+       
         self.Image = new_image_path
 
-        #Volver a guardar el modelo para actulizar la imagen con el nuevo formato
+       
         super(whatOurDonorsSay, self).save(*args, **kwargs)
 
        class Meta:
@@ -544,7 +540,7 @@ class contact(models.Model):
     def save(self, *args, **kwargs):
 
         if self.is_active:
-            # Desactivar todos los otros elementos activos
+        
             contact.objects.exclude(ContactID=self.ContactID).filter(is_active=True).update(is_active=False)
         super(contact, self).save(*args, **kwargs)
 

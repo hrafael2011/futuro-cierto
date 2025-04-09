@@ -18,7 +18,6 @@ const Noticias = ({ openModal }) => {
       try {
         const response = await contentNews.get("/news/");
         setNewsList(response.data);
-        console.log("estos son los datos de la noticia", response);
       } catch (error) {
         console.log("Error fetching data:", error);
       }

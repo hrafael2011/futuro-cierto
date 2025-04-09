@@ -16,7 +16,7 @@ const DonationModal = () => {
       try {
         const response = await contenTAccount.get("/accountBank/");
         setAccountBank(response.data);
-        console.log("estos son los datos de la noticia", response);
+      
       } catch (error) {
         console.log("Error fetching data:", error);
       }

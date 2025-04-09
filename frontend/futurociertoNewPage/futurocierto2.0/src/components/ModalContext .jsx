@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState } from "react";
 
-// Crear el contexto
+// Create context
 const ModalContext = createContext();
 
-// Crear el proveedor del contexto
+// create context provider
 export const ModalProvider = ({ children }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -17,5 +17,6 @@ export const ModalProvider = ({ children }) => {
   );
 };
 
-// Hook personalizado para usar el contexto
+
+//Customer hook for to use context
 export const useModal = () => useContext(ModalContext);

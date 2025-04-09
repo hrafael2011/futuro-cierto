@@ -1,16 +1,15 @@
-import React , { useState, useEffect, useRef} from 'react'
-import { Outlet, Link } from 'react-router-dom'
+import React, { useState, useEffect, useRef } from "react";
+import { Outlet, Link } from "react-router-dom";
 import contentApi from "../../api/contentApi";
-import Header from '../Header'
-import Footer from '../Footer'
-import Banner from '../Banner'
-import Countdown from '../Countdown'
-import ScrollToTop from '../ScrollToTop'
-import { useTranslation } from 'react-i18next';
-
+import Header from "../Header";
+import Footer from "../Footer";
+import Banner from "../Banner";
+import Countdown from "../Countdown";
+import ScrollToTop from "../ScrollToTop";
+import { useTranslation } from "react-i18next";
 
 const Educacion = () => {
-  const { t } = useTranslation(); // Inicializa el hook
+  const { t } = useTranslation();
   const contentData = contentApi();
   const [education, setEducation] = useState([]);
 

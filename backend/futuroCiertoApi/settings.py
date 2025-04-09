@@ -14,7 +14,12 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+
+# Base Url
+BASE_URL = 'https://draacostafit.com'
+#BASE_URL ='http://127.0.0.1:8000'
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,18 +31,24 @@ SECRET_KEY = 'django-insecure-&=)%5@(0p4(gqw076#8b_f0b46$&^q1&26p7)ck-g^qiqn%+w9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['futurociertord.azurewebsites.net',
-                 '127.0.0.1','localhost']
+ALLOWED_HOSTS = [#'futurociertord.azurewebsites.net',
+                 '3.12.151.15',
+                 '127.0.0.1',
+                 'localhost',
+                 'draacostafit.com',
+                 'www.draacostafit.com'
+                 ]
 
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://futurociertord.azurewebsites.net',  # Dominio de tu app con HTTPS
-    'http://futurociertord.azurewebsites.net',
     'http://localhost:8000/',
-    'http://127.0.0.1:8000/'
-      # Si usas HTTP (temporalmente)
+    'http://127.0.0.1:8000/',
+    'http://3.12.151.15:8080',
+    'http://draacostafit.com',       # Versión HTTP sin 'www'
+    'https://draacostafit.com',      # Versión HTTPS sin 'www'
+    'http://www.draacostafit.com',   # Versión HTTP con 'www'
+    'https://www.draacostafit.com',  # Versión HTTPS con 'www'
 
-    
 ]
 
 
@@ -159,15 +170,25 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = '/app/staticfiles/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_ROOT= '/var/www/html/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 'http://10.0.0.58:5173', 'https://new-page.futurociertord.org']
-CORS_ALLOW_ALL_ORIGINS = True 
+CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 
+                        'http://10.0.0.58:5173',  
+                        'https://new-page.futurociertord.org',
+                        'http://draacostafit.com',       
+                        'https://draacostafit.com',      
+                        'http://www.draacostafit.com',   
+                        'https://www.draacostafit.com' 
+
+                        ]
+#CORS_ALLOW_ALL_ORIGINS = True 
 
 
 
@@ -181,8 +202,18 @@ REST_FRAMEWORK = {
 
 
 #Media files
+#MEDIA_URL = '/media/'
+#MEDIA_URL = 'https://draacostafit.com/media/'
+
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/home/ec2-user/media/' 
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Permisos automáticos para archivos subidos
+FILE_UPLOAD_PERMISSIONS = 0o664  # -rw-rw-r--
+FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o775  # drwxrwxr-x
 
 
 from decouple import config
@@ -195,7 +226,7 @@ TRANSLATOR_API_KEY = config('API_KEY_TRANSLATOR', default=None)
 # ERROR DETECTION BY LOG
 
 # Ruta base de tu proyecto (asegúrate de que esté definida correctamente)
-BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Ruta para guardar el archivo de log
 LOG_DIR = BASE_DIR / "logs"

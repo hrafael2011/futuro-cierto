@@ -40,12 +40,12 @@ const Footer = forwardRef((props, ref) => {
   return (
     <div>
       <footer ref={ref}>
-        <div className="container">
+        <div className="container mx-[100px]">
           <div className="row">
             <div className="col-md-6">
               <ul className="row">
                 {data.contact.map((conct, i) => (
-                  <li key={conct.ContactID} className="col-sm-6 shadow">
+                  <li key={i} className="col-sm-6 shadow">
                     <ul className="social_icons">
                       <li className="facebook">
                         <Link to={conct.LinkFacebook}>
@@ -75,7 +75,7 @@ const Footer = forwardRef((props, ref) => {
                   <h6>{t("utils_link")}</h6>
                   <ul className="links">
                     {data.navigation.map((navi, i) => (
-                      <li key={navi.NavId}>
+                      <li key={i}>
                         <Link to={navi.Url}>
                           {navi.PageName != "Contacto" &&
                           navi.PageName != "Donar"
@@ -91,22 +91,9 @@ const Footer = forwardRef((props, ref) => {
 
             <div className="col-md-6">
               <ul className="row">
-                <li className="col-sm-6">
-                  <div className="tweet">
-                    <h6>Latest Tweets</h6>
-                    <p>
-                      Eaque ipsa quae ab illo inventore veris quasi architecto
-                      beatae vitae dicta exp enim ipsam voluptatem.
-                    </p>
-                    <a href="#.">http://socialwelfare/themeforest</a>{" "}
-                    <span>
-                      <i className="fa fa-twitter-square"></i> 3.00 PM, 24 May
-                      2015
-                    </span>{" "}
-                  </div>
-                </li>
+              
 
-                <li className="col-sm-6 padding-l-60">
+                <li className="col-sm-6 padding-l-60 mb-8">
                   <h6>{t("donates")}</h6>
                   <ul className="links">
                     <li>

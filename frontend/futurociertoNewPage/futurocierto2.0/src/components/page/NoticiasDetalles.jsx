@@ -20,7 +20,6 @@ const NoticiasDetalles = () => {
       try {
         const response = await contentNews.get("/news/" + id);
         setNewsID(response.data);
-        console.log("Este son los datos de detalles noticas", response);
       } catch (error) {
         console.log("Error Feching Data News", error);
       }

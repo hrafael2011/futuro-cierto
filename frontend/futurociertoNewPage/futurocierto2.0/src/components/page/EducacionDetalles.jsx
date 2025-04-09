@@ -20,7 +20,6 @@ const EducacionDetalles = () => {
       try {
         const response = await contentData.get("/education/" + id);
         setEducationID(response.data);
-        console.log("Este son los datos de detalles educacion", response);
       } catch (error) {
         console.log("Error Feching Data News", error);
       }

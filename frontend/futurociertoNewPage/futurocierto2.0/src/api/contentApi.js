@@ -28,7 +28,10 @@ const useContentApi = () => {
 
     const contentNews = useMemo(() => {
         return axios.create({
-            baseURL: 'http://localhost:8000/FuturoCiertoContent/api/v1',
+            //baseURL: 'http://3.12.151.15:8080/FuturoCiertoContent/api/v1',
+            //baseURL: 'http://localhost:8000/FuturoCiertoContent/api/v1',
+            baseURL:'https://draacostafit.com/FuturoCiertoContent/api/v1/',
+
             headers: {
                 'Accept-Language': language,
             },

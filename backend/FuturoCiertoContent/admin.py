@@ -1,7 +1,5 @@
-from django import forms
+
 from django.contrib import admin
-from django.db.models.query import QuerySet
-from django.http import HttpRequest
 from simple_history.admin import SimpleHistoryAdmin
 
 from.models import (navigation, 
@@ -22,7 +20,7 @@ from.models import (navigation,
 
 
 
-# ocuta los datos que yo no unsaremos , pers se quedan en la base de datos
+# Soft delete mixin to hide data that is not being used, but still keep it in the database
 class SoftDeleteMixin:
     def get_queryset(self, request):
             queryset = super().get_queryset(request)
@@ -31,7 +29,7 @@ class SoftDeleteMixin:
 
 # Register your models here.
 @admin.register(navigation)
-class NavigationAdmin(SoftDeleteMixin,SimpleHistoryAdmin): #admin.ModelAdmin fue cambiado por simpleHistoryAdmin , porque ese extendie a la clase admin , por ende heredad todas su propiedades
+class NavigationAdmin(SoftDeleteMixin,SimpleHistoryAdmin): 
     list_display  = ('PageName','PageName_en','Url','is_active')
     list_filter = ('is_active',)
     search_fields = ('PageName',)
@@ -39,7 +37,7 @@ class NavigationAdmin(SoftDeleteMixin,SimpleHistoryAdmin): #admin.ModelAdmin fue
   
    
 
-#admin.site.register(navigation, NavigationAdmin)
+
 
 @admin.register(news)
 class NewsAdmin(SoftDeleteMixin,SimpleHistoryAdmin):
@@ -88,13 +86,14 @@ class bannersAdmin(SoftDeleteMixin,SimpleHistoryAdmin, admin.ModelAdmin):
     search_fields = ('TextAlt',)
     exclude = ('is_hidden',)
 
-    # funcion para quitar botones
+    # Hidden button function
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-        # Desactivar el botón de "Agregar" y "Editar"
+
+        # Disable add and edity buttons
         if 'Url' in form.base_fields:
-            form.base_fields['Url'].widget.can_add_related = False  # Oculta el botón "Agregar"
-            form.base_fields['Url'].widget.can_change_related = False  # Oculta el botón "Editar"
+            form.base_fields['Url'].widget.can_add_related = False  # Hidden add button
+            form.base_fields['Url'].widget.can_change_related = False  #Hidden edit button
         return form
 
     
